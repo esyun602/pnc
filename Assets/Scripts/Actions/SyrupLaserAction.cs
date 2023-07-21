@@ -48,6 +48,7 @@ public class SyrupLaserAction : IAction
         if (timePassed > runningTime)
         {
             dummyLaserInstance.Dispose();
+            Chef.Instance.HandManager.EndHandAction();
             endCallback?.Invoke();
             isActive = false;
         }

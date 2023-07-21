@@ -31,6 +31,11 @@ public class HandManager : MonoBehaviour
         GetHandObjectByState(currentState).StartAction();
     }
 
+    public void EndHandAction()
+    {
+        GetHandObjectByState(currentState).EndAction();
+    }
+
     private IHandController GetHandObjectByState(ChefHandState state)
     {
         switch (state)
