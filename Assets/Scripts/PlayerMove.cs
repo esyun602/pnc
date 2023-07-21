@@ -21,7 +21,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") || Input.GetKey(KeyCode.W))
         {
 			isJumping = true;
 		}
@@ -34,18 +34,19 @@ public class PlayerMove : MonoBehaviour
 
     private Vector3 moveVelocity;
 	private void Move()
-	{		
+	{
+        // 움직임 증폭 방지
 		moveVelocity = Vector3.zero;
 
-		if (Input.GetAxisRaw("Horizontal") < 0)
+		if (Input.GetKey(KeyCode.A))
         {
-			moveVelocity = Vector3.left;
+			moveVelocity = new Vector3(-1.0f, 0.0f, 0.0f);
 		}
 			
-		else if(Input.GetAxisRaw("Horizontal") > 0)
+		else if(Input.GetKey(KeyCode.D))
         {
-			moveVelocity = Vector3.right;
-		}	
+			moveVelocity = new Vector3(1.0f, 0.0f, 0.0f);
+		}
 
 		transform.position += moveVelocity * movePower * Time.deltaTime;
 	}
