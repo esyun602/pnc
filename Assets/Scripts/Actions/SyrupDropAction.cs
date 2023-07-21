@@ -21,12 +21,15 @@ public class SyrupDropAction : IAction
         timePassed = 0;
         isActive = true;
         startPos = Cursor.Instance.WorldPos;
+        Chef.Instance.HandManager.StartHandAction();
 
         this.endCallback = endCallback;
     }
 
     void IAction.UpdateFrame(float dt)
     {
+        Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupDrop);
+        Chef.Instance.HandManager.UpdateHandPosition();
         if (!isActive)
         {
             return;
@@ -35,6 +38,7 @@ public class SyrupDropAction : IAction
         timePassed += dt;
         if (timePassed > runningTime)
         {
+            Chef.Instance.HandManager.EndHandAction();
             endCallback?.Invoke();
             isActive = false;
         }

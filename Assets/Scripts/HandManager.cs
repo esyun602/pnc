@@ -8,6 +8,8 @@ public class HandManager : MonoBehaviour
     private LaserHandController leftHandWithSyrupLaser;
     [SerializeField]
     private LaserHandController rightHandWithSyrupLaser;
+    [SerializeField]
+    private DropHandController dropHand;
 
     private ChefHandState currentState;
     public IHandController CurrentHandController => GetHandObjectByState(currentState);
@@ -46,6 +48,8 @@ public class HandManager : MonoBehaviour
                 return leftHandWithSyrupLaser;
             case ChefHandState.SyrupLaserRight:
                 return rightHandWithSyrupLaser;
+            case ChefHandState.SyrupDrop:
+                return dropHand;
             default:
                 return NullHandController.Instance;
         }
