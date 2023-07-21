@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chief : MonoBehaviour
+public class Chef : MonoBehaviour
 {
     //TODO: pooling
     [SerializeField]
-    private DummyHitBox DummyHitBoxPrefab;
+    private DummyHitBox dummyHitBoxPrefab;
+    [SerializeField]
+    private DummyHitBox dummyDropPrefab;
+
     private ActionHandler actionHandler;
 
     private void Start()
@@ -14,7 +17,8 @@ public class Chief : MonoBehaviour
         actionHandler = new ActionHandler(
         new List<IAction>()
         {
-            new DummyAction(DummyHitBoxPrefab)
+            new DummyAction(dummyHitBoxPrefab),
+            new SyrupDropAction(dummyDropPrefab)
         });
     }
 
