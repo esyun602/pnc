@@ -32,6 +32,15 @@ public class SyrupLaserAction : IAction
     {
         if (!isActive)
         {
+            if(Cursor.Instance.ViewPortPos.x > 0.5f)
+            {
+                Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserRight);
+            }
+            else
+            {
+                Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserLeft);
+            }
+            Chef.Instance.HandManager.UpdateHandPosition();
             return;
         }
 
@@ -50,6 +59,7 @@ public class SyrupLaserAction : IAction
 
     private void InstantiateLaser()
     {
+        Chef.Instance.HandManager.StartHandAction();
         dummyLaserInstance = laserPool.Instantiate();
         dummyLaserInstance.transform.position = new Vector2(0, triggerPos.y);
     }

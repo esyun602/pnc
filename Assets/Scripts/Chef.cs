@@ -2,9 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ChefHandState
+{
+    None = 0,
+    SyrupDrop = 1,
+    SyrupLaserLeft = 2,
+    SyrupLaserRight = 3,
+    Fork = 4,
+}
+
 public class Chef : MonoBehaviour
 {
-    //TODO: pooling
     [SerializeField]
     private GameObject dummyHitBoxPrefab;
     [SerializeField]
@@ -13,6 +21,23 @@ public class Chef : MonoBehaviour
     private GameObject dummyLaserPrefab;
 
     private ActionHandler actionHandler;
+    [SerializeField]
+    private HandManager handManager;
+    public HandManager HandManager => handManager;
+    
+    public static Chef Instance { get; private set; }
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -53,5 +78,9 @@ public class Chef : MonoBehaviour
         }
     }
 
+    public void SetChefHandState(ChefHandState state)
+    {
+        handManager.SetHandState(state);
+    }
 
 }
