@@ -9,17 +9,17 @@ public class DummyAction : IAction
     private float runningTime = 1f;
     private float timePassed = 0;
     private bool isActive;
-    private DummyHitBox DummyHitBoxPrefab;
+    private ObjectPool dummyHitBoxPool;
 
-    public DummyAction(DummyHitBox hitBox)
+    public DummyAction(GameObject hitBox)
     {
-        DummyHitBoxPrefab = hitBox;
+        dummyHitBoxPool = new ObjectPool(hitBox);
     }
 
     void IAction.Trigger(Action endCallback)
     {
         this.endCallback = endCallback;
-        var instance = UnityEngine.Object.Instantiate(DummyHitBoxPrefab);
+        var instance = dummyHitBoxPool.Instantiate();
         instance.transform.position = Cursor.Instance.WorldPos;
         timePassed = 0;
         isActive = true;

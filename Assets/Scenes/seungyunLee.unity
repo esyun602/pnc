@@ -575,9 +575,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49dc0db4fc23cb7498cde96f5cc78c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dummyHitBoxPrefab: {fileID: 2140045618271299782, guid: d6c3d9ba62e87cc4882c462416941b91, type: 3}
-  dummyDropPrefab: {fileID: -211035842758246145, guid: 068536b247180ee4ab08ad5dc6569545, type: 3}
-  dummyLaserPrefab: {fileID: -2241693268587617949, guid: cdc1694645a900d4ba52c708acfb980d, type: 3}
+  dummyHitBoxPrefab: {fileID: 1827733261288455358, guid: d6c3d9ba62e87cc4882c462416941b91, type: 3}
+  dummyDropPrefab: {fileID: 6372375136990710152, guid: 068536b247180ee4ab08ad5dc6569545, type: 3}
+  dummyLaserPrefab: {fileID: 2772653174051012431, guid: cdc1694645a900d4ba52c708acfb980d, type: 3}
 --- !u!4 &1052408781
 Transform:
   m_ObjectHideFlags: 0

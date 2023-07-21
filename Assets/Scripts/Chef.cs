@@ -6,11 +6,11 @@ public class Chef : MonoBehaviour
 {
     //TODO: pooling
     [SerializeField]
-    private DummyHitBox dummyHitBoxPrefab;
+    private GameObject dummyHitBoxPrefab;
     [SerializeField]
-    private DummyHitBox dummyDropPrefab;
+    private GameObject dummyDropPrefab;
     [SerializeField]
-    private DummyLaserHitbox dummyLaserPrefab;
+    private GameObject dummyLaserPrefab;
 
     private ActionHandler actionHandler;
 

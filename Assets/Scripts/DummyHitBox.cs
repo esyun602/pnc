@@ -9,7 +9,7 @@ public class DummyHitBox : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<DummyHitBox>() == null)
         {
-            gameObject.SetActive(false);
+            GetComponent<PooledObject>().Dispose();
             if (collision.gameObject.GetComponent<PlayerMove>() != null)
             {
                 collision.gameObject.SetActive(false);

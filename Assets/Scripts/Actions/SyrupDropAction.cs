@@ -7,14 +7,14 @@ public class SyrupDropAction : IAction
     private float runningTime = 5f;
     private float timePassed = 0;
     private bool isActive = false;
-    private DummyHitBox dummyDropPrefab;
+    private ObjectPool dummyDropPool;
     private Vector2 startPos;
 
     private System.Action endCallback;
 
-    public SyrupDropAction(DummyHitBox dummyDrop)
+    public SyrupDropAction(GameObject dummyDrop)
     {
-        dummyDropPrefab = dummyDrop;
+        dummyDropPool = new ObjectPool(dummyDrop, 80);
     }
     void IAction.Trigger(System.Action endCallback)
     {
@@ -41,7 +41,7 @@ public class SyrupDropAction : IAction
         else
         {
             startPos = new Vector2(Cursor.Instance.WorldPos.x, startPos.y);
-            var newTransfrom = Object.Instantiate(dummyDropPrefab).transform;
+            var newTransfrom = dummyDropPool.Instantiate().transform;
             newTransfrom.position = startPos;
         }
     }
