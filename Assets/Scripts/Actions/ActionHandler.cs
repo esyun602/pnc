@@ -15,6 +15,7 @@ public class ActionHandler
     private int curIdx;
 
     public IAction CurrentAction => actionList[curIdx];
+    private IAction currentTriggeredAction = null;
 
     private ChiefAction blockChiefAction = ChiefAction.None;
     private bool IsChangeBlocked => (blockChiefAction & ChiefAction.ChangeAction) == ChiefAction.ChangeAction;
@@ -54,18 +55,25 @@ public class ActionHandler
         }
 
         BlockTriggerAction();
-        CurrentAction.Trigger(RestoreTriggerAction);
+        currentTriggeredAction = CurrentAction;
+        CurrentAction.Trigger(EndActionCallback);
     }
 
     //TODO: TBD
     public void UpdateFrame(float dt)
     {
-        CurrentAction.UpdateFrame(dt);
+        (currentTriggeredAction ?? CurrentAction).UpdateFrame(dt);
     }
 
     public void BlockTriggerAction()
     {
         blockChiefAction |= ChiefAction.TriggerAction;
+    }
+
+    private void EndActionCallback()
+    {
+        currentTriggeredAction = null;
+        RestoreTriggerAction();
     }
 
     public void RestoreTriggerAction()
