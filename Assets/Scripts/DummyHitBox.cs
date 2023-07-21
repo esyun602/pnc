@@ -10,6 +10,10 @@ public class DummyHitBox : MonoBehaviour
         if (collision.gameObject.GetComponent<DummyHitBox>() == null)
         {
             gameObject.SetActive(false);
+            if (collision.gameObject.GetComponent<PlayerMove>() != null)
+            {
+                collision.gameObject.SetActive(false);
+            }
         }
     }
 }
