@@ -11,8 +11,6 @@ public class DummyAction : IAction
     private bool isActive;
     private DummyHitBox DummyHitBoxPrefab;
 
-    public bool IsActive => isActive;
-
     public DummyAction(DummyHitBox hitBox)
     {
         DummyHitBoxPrefab = hitBox;
@@ -29,7 +27,7 @@ public class DummyAction : IAction
 
     void IAction.UpdateFrame(float dt)
     {
-        if (!IsActive)
+        if (!isActive)
         {
             return;
         }

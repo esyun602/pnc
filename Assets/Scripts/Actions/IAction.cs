@@ -5,7 +5,6 @@ using System;
 
 public interface IAction
 {
-    public bool IsActive { get; }
     public void Trigger(Action endCallback);
     public void UpdateFrame(float dt);
 }
