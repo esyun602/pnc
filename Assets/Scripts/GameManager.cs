@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public float TimePassed => timePassed;
     public float LeftTime => TimeLimit - timePassed;
     public bool IsInGame => isInGame;
+    public int winner {get; set;}
 
     // Start is called before the first frame update
     void Start()

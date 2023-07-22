@@ -1,23 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClearUI : MonoBehaviour
 {
-    public int winner {get; set;}
+    private int winner;
     [SerializeField] private GameObject chefWin, pancakeWin;
     [SerializeField] private RectTransform chefResult, pancakeResult, chefWinner, pancakeWinner;
+    [SerializeField] private Text timeChef, timePancake;
     Vector3 minus, plus;
     void Start()
     {
-        winner = 0;
+        winner = GameManager.Instance.winner;
+        // Chef Win
         if (winner == 0)
         {
+            timeChef.text = ((int)GameManager.Instance.LeftTime / 60 % 60).ToString("D2")
+                            +":"+ ((int)GameManager.Instance.LeftTime % 60).ToString("D2");
             pancakeWin.SetActive(false);
             chefWin.SetActive(true);
         }
+        // Pancake Win
         else
         {
+            timePancake.text = ((int)GameManager.Instance.LeftTime / 60 % 60).ToString("D2")
+                            + ":" + ((int)GameManager.Instance.LeftTime % 60).ToString("D2");
             chefWin.SetActive(false);
             pancakeWin.SetActive(true);
         }
