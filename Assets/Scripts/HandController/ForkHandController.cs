@@ -12,7 +12,7 @@ public class ForkHandController : MonoBehaviour, IHandController
     private GameObject normalSprite;
 
     private Vector3 prevPos;
-    void IHandController.UpdatePosition()
+    Vector3 IHandController.UpdatePosition()
     {
         prevPos = transform.position;
 
@@ -26,6 +26,7 @@ public class ForkHandController : MonoBehaviour, IHandController
         {
             normalSprite.transform.Rotate(new Vector3(0f, 0f, 3f) * Time.deltaTime, Space.World);
         }
+        return transform.position;
     }
 
     void IHandController.SetActive(bool activeState)
