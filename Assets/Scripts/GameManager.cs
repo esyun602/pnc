@@ -60,5 +60,10 @@ public class GameManager : MonoBehaviour
                 GameOver(true);
             }
         }
+
+        if((int)timePassed / 20 > 0 && (int)timePassed % 20 == 0)
+        {
+            SoundManager.Instance.ChefSound();
+        }
     }
 }

@@ -38,6 +38,7 @@ public class MapleController : MonoBehaviour
         var controller = collision.GetComponent<PlayerController>();
         if(controller != null)
         {
+            SoundManager.Instance.EarnMaple();
             controller.IsMapled = true;
         }
         else if(collision.tag == "Ground")

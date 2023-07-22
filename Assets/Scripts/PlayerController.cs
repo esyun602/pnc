@@ -173,6 +173,8 @@ public class PlayerController : MonoBehaviour
 		if (!canJump || jumpCount <= 0)
 			return;
 
+        SoundManager.Instance.JumpSound();
+
         // 점프 횟수 제한
         jumpCount--;
 
@@ -253,6 +255,10 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
+        // sound
+        SoundManager.Instance.PancakeDamaged();
+        Invoke("AttackSucceed", 0.1f);
 
         lastDamagedTime = Time.time;
         blinkTimePassed = damageBlinkTerm;
