@@ -19,6 +19,10 @@ public class Chef : MonoBehaviour
     private GameObject dummyDropPrefab;
     [SerializeField]
     private GameObject dummyLaserPrefab;
+    [SerializeField]
+    private Object dummyForkPrefab;
+    [SerializeField]
+    private Object dummyRedPrefab;
 
     private ActionHandler actionHandler;
     [SerializeField]
@@ -47,6 +51,7 @@ public class Chef : MonoBehaviour
             new DummyAction(dummyHitBoxPrefab),
             new SyrupDropAction(dummyDropPrefab),
             new SyrupLaserAction(dummyLaserPrefab),
+            new ForkAction(dummyForkPrefab, dummyRedPrefab),
         });
     }
 
