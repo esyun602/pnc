@@ -869,7 +869,7 @@ MonoBehaviour:
   dummyDropPrefab: {fileID: 6372375136990710152, guid: 068536b247180ee4ab08ad5dc6569545, type: 3}
   dummyLaserPrefab: {fileID: 2772653174051012431, guid: cdc1694645a900d4ba52c708acfb980d, type: 3}
   dummyLaserLeftDangerPrefab: {fileID: 1940732364739479391, guid: 63cfb33e0a4dcb544a698e83b3651e1c, type: 3}
-  dummyLaserRightDangerPrefab: {fileID: 1940732364739479391, guid: 63cfb33e0a4dcb544a698e83b3651e1c, type: 3}
+  dummyLaserRightDangerPrefab: {fileID: 1940732364739479391, guid: 5f5546969c0de3b4a9055d1c15758c5f, type: 3}
   dummyForkPrefab: {fileID: 6950690711894305701}
   dummyRedPrefab: {fileID: 0}
   dummySyrupPrefab: {fileID: 4776554732712610908, guid: 99883721b1c373a4eab93dc6b7afdc68, type: 3}
