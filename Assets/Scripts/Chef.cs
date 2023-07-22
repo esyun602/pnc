@@ -27,6 +27,7 @@ public class Chef : MonoBehaviour
     private float headTimePassed = -roundTime/4;
     private float bodyTimePassed = 0;
 
+
     [SerializeField]
     private GameObject dummyHitBoxPrefab;
     [SerializeField]

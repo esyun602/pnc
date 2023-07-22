@@ -2,28 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public float movePower = 1f;
-	public float jumpPower = 1f;
+    // Movement
+    [SerializeField] private float movePower = 3f;
+    [SerializeField] private float jumpPower = 3f;
 
-	private Rigidbody2D rig;
-	private Vector3 movement;
-	private bool isJumping = false;
+    private Vector3 movement;
+    private Rigidbody2D rig;
+
+    private Vector2 jumpVelocity;
+    private bool canJump = false;
     private int jumpCount = 2;
+
+    // Life
+    private int life = 3;
+    private SpriteRenderer pancakeImg;
+    [SerializeField] private Sprite[] pancakes;
 
     // Start is called before the first frame update
     void Start()
     {
         rig = gameObject.GetComponent<Rigidbody2D>();
+        pancakeImg = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump") || Input.GetKey(KeyCode.W))
+        if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.W))
+            && jumpCount > 0)
         {
-			isJumping = true;
+            canJump = true;
 		}
     }
     void FixedUpdate()
@@ -51,10 +61,9 @@ public class PlayerMove : MonoBehaviour
 		transform.position += moveVelocity * movePower * Time.fixedDeltaTime;
 	}
 
-    private Vector2 jumpVelocity;
 	private void Jump()
 	{
-		if (!isJumping || jumpCount <= 0)
+		if (!canJump || jumpCount <= 0)
 			return;
 
         // 점프 횟수 제한
@@ -65,8 +74,7 @@ public class PlayerMove : MonoBehaviour
 
 		jumpVelocity = new Vector2(0, jumpPower);
 		rig.AddForce(jumpVelocity, ForceMode2D.Impulse);
-
-		isJumping = false;
+        canJump = false;
 	}
 
     
@@ -77,5 +85,28 @@ public class PlayerMove : MonoBehaviour
         {
             jumpCount = 2;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // 시럽 장판에 닿았을 때 이동속도 저하
+        if(other.gameObject.tag == "Syrup")
+        {
+            StartCoroutine(SlowDown());
+        }  
+    }
+
+    private IEnumerator SlowDown()
+    {
+        movePower = jumpPower = 0.5f;
+        yield return new WaitForSeconds(1f);
+        movePower = jumpPower = 3f;
+    }
+
+    // Life 횟수
+    public void AddLife(int count)
+    {
+        life += count;
+        pancakeImg.sprite = pancakes[life - 1];
     }
 }

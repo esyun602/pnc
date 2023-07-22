@@ -13,6 +13,8 @@ public class ForkAction : IAction
 
     private Vector3 targetPos;
 
+    private float offset;
+
     public ForkAction(GameObject _fork, GameObject _red)
     {
         fork = _fork;
@@ -24,12 +26,12 @@ public class ForkAction : IAction
         this.endCallback = endCallback;
 
         // 빨간색 잠깐 표시
-        targetPos = new Vector3(Cursor.Instance.WorldPos.x + 3.25f, fork.transform.position.y, 0f)
-                     + new Vector3(-3.25f, -2.3f, 0f);
+        targetPos = new Vector3(Cursor.Instance.WorldPos.x + offset, fork.transform.position.y, 0f)
+                     + new Vector3(-offset, -2.3f, 0f);
         redTarget.SetActive(true);
         redTarget.transform.position = targetPos;
         // 공격 고정 위치 값
-        targetPos = targetPos + new Vector3(3.25f, 2.3f, 0f);
+        targetPos = targetPos + new Vector3(offset, 2.3f, 0f);
         
         timePassed = 0;
         isActive = true;
@@ -37,9 +39,16 @@ public class ForkAction : IAction
     // 스킬 실행 중
     void IAction.UpdateFrame(float dt)
     {
-        // 팔 움직임
+        if(Cursor.Instance.ViewPortPos.x > 0.5f)
+        {
+            offset = 0;
+        }
+        else
+        {
+            offset = 0;
+        }
+
         Chef.Instance.HandManager.SetHandState(ChefHandState.Fork);
-        Chef.Instance.HandManager.UpdateHandPosition();
         // 첫 포크 생성
         if(fork.activeSelf == false)
         {
@@ -50,8 +59,11 @@ public class ForkAction : IAction
         if (!isActive)
         {
             // 포크 천천히 이동
-            fork.transform.position = Vector3.MoveTowards(fork.transform.position,
-                                            new Vector3(Cursor.Instance.WorldPos.x + 3.25f, fork.transform.position.y, 0f), 3f * Time.deltaTime);
+
+            // 팔 움직임
+            Chef.Instance.HandManager.UpdateHandPosition();
+            // fork.transform.position = Vector3.MoveTowards(fork.transform.position,
+            //                                 new Vector3(Cursor.Instance.WorldPos.x + 3.25f, fork.transform.position.y, 0f), 3f * Time.deltaTime);
             return;
         }
 
@@ -74,7 +86,9 @@ public class ForkAction : IAction
         // 다시 올라간 후 0.5초 안에 장착 상태로 돌아감
         else
         {
-            fork.transform.position = Vector3.Lerp(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x + 3.25f, targetPos.y, 0f), 
+            // 팔 움직임
+            Chef.Instance.HandManager.UpdateHandPosition();
+            fork.transform.position = Vector3.Lerp(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x + offset, targetPos.y, 0f), 
                                                     (timePassed - 1f) / 0.5f);
         }
 
@@ -82,7 +96,7 @@ public class ForkAction : IAction
         if(timePassed > runningTime)
         {
             // 커서 위치로 포크 즉각 이동
-            fork.transform.position = new Vector3(Cursor.Instance.WorldPos.x + 3.25f, fork.transform.position.y, 0f);
+            //fork.transform.position = new Vector3(Cursor.Instance.WorldPos.x + 3.25f, fork.transform.position.y, 0f);
             isActive = false;
             endCallback();
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ForkHandController : MonoBehaviour, IHandController
 {
@@ -10,23 +11,43 @@ public class ForkHandController : MonoBehaviour, IHandController
     // Arm
     [SerializeField]
     private GameObject normalSprite;
+    [SerializeField]
+    private Transform leftArm, leftFork;
+    [SerializeField]
+    private Transform rightArm, rightFork;
+
+    private float offset;
+
+
 
     private Vector3 prevPos;
     Vector3 IHandController.UpdatePosition()
     {
-        prevPos = transform.position;
+        // 팔 천천히 이동
+        transform.position = Vector3.MoveTowards(transform.position,
+                                        new Vector3(Cursor.Instance.WorldPos.x + offset, transform.position.y, 0f), 3f * Time.deltaTime);
 
-        // 오른쪽으로 움직이면 시계방향으로 왼팔 회전
-        if(prevPos.x - transform.position.x < 0)
-        {
-            normalSprite.transform.Rotate(new Vector3(0f, 0f, -3f) * Time.deltaTime, Space.World);
-        }
-        // 왼쪽으로 움직이면 반시계방향으로 왼팔 회전
-        else if (prevPos.x - transform.position.x > 0)
-        {
-            normalSprite.transform.Rotate(new Vector3(0f, 0f, 3f) * Time.deltaTime, Space.World);
-        }
+        UpdateArm();
         return transform.position;
+    }
+
+    private void UpdateArm()
+    {
+        var viewPortX = Camera.main.WorldToViewportPoint(Cursor.Instance.WorldPos).x;
+        // 오른쪽
+        if (viewPortX > 0.5f)
+        {
+            rightArm.gameObject.SetActive(true);    rightFork.gameObject.SetActive(true);
+            leftArm.gameObject.SetActive(false);    leftFork.gameObject.SetActive(false);
+            offset = 0;
+        }
+        // 왼쪽
+        else
+        {
+            leftArm.gameObject.SetActive(true);     leftFork.gameObject.SetActive(true);
+            rightArm.gameObject.SetActive(false);   rightFork.gameObject.SetActive(false);
+            offset = 0;
+        }
     }
 
     void IHandController.SetActive(bool activeState)
