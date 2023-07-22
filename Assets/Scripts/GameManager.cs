@@ -7,7 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     private bool isInGame;
+    private bool isInOverRoutine;
+    private const float overRoutineTime = 2f;
     private float timePassed;
+    private float gameOverTime;
     public const float TimeLimit = 60f;
     public float TimePassed => timePassed;
     public float LeftTime => TimeLimit - timePassed;
@@ -31,6 +34,10 @@ public class GameManager : MonoBehaviour
     public void GameOver(bool panCakeWin)
     {
         isInGame = false;
+        isInOverRoutine = true;
+        gameOverTime = Time.time;
+        Time.timeScale = 0.5f;
+
         if (panCakeWin)
         {
             winner = 1;
@@ -39,8 +46,6 @@ public class GameManager : MonoBehaviour
         {
             winner = 0;
         }
-
-        SceneManager.LoadScene("Clear");
     }
 
     public void GameStart()
@@ -58,6 +63,16 @@ public class GameManager : MonoBehaviour
             {
                 timePassed = TimeLimit;
                 GameOver(true);
+            }
+        }
+
+        if (isInOverRoutine)
+        {
+            if(Time.time - gameOverTime > overRoutineTime)
+            {
+                Time.timeScale = 1f;
+                isInOverRoutine = false;
+                SceneManager.LoadScene("Clear");
             }
         }
     }
