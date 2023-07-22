@@ -6,9 +6,41 @@ public class LaserHandController : MonoBehaviour, IHandController
 {
     [SerializeField]
     private GameObject laserObject;
-    void IHandController.UpdatePosition()
-    {
-        transform.position = new Vector2(transform.position.x, Cursor.Instance.WorldPos.y);
+
+    private const float maxHeight = 4f;
+    private const float velocity = Cursor.Speed * 4;
+
+    private float lastEndTime;
+    private const float restoreTIme = 1f;
+
+    Vector3 IHandController.UpdatePosition()
+    {/*
+        var targetPos = new Vector3(transform.position.x, Mathf.Min(Cursor.Instance.WorldPos.y, maxHeight));
+        var moveVector = targetPos - transform.position;
+        var moveMagnitude = velocity * Time.deltaTime;
+        if(moveVector.magnitude < moveMagnitude)
+        {
+            moveMagnitude = moveVector.magnitude;
+        }
+
+        transform.position += moveVector.normalized * moveMagnitude;*/
+        if (Time.time - lastEndTime < restoreTIme)
+        {
+            var targetPos = new Vector3(transform.position.x, Mathf.Min(Cursor.Instance.WorldPos.y, maxHeight));
+
+            var moveVector = targetPos - transform.position;
+            var moveMagnitude = velocity * Time.deltaTime;
+            if (moveVector.magnitude < moveMagnitude)
+            {
+                moveMagnitude = moveVector.magnitude;
+            }
+            transform.position += moveVector.normalized * moveMagnitude;
+        }
+        else
+        {
+            transform.position = new Vector2(transform.position.x, Mathf.Min(Cursor.Instance.WorldPos.y, maxHeight));
+        }
+        return transform.position;
     }
 
     void IHandController.SetActive(bool activeState)
@@ -24,5 +56,6 @@ public class LaserHandController : MonoBehaviour, IHandController
     void IHandController.EndAction()
     {
         laserObject.SetActive(false);
+        lastEndTime = Time.time;
     }
 }

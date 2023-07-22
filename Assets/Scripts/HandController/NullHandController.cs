@@ -9,9 +9,9 @@ public class NullHandController : IHandController
     {
 
     }
-    void IHandController.UpdatePosition()
+    Vector3 IHandController.UpdatePosition()
     {
-
+        return Vector3.zero;
     }
     void IHandController.StartAction()
     {

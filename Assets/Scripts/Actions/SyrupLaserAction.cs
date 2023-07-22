@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class SyrupLaserAction : IAction
 {
-    private float runningTime = 5f;
-    private float castingTime = 2f;
+    private const float runningTime = 1.25f;
+    private const float handRestoreTime = 0.75f;
+    private const float castingTime = 0.5f;
     private float timePassed = 0;
     private bool isActive = false;
 
-    private ObjectPool laserPool;
-    private PooledObject dummyLaserInstance;
     private Vector2 triggerPos;
 
     private System.Action endCallback;
 
-    public SyrupLaserAction(GameObject dummyLaserHitbox)
+    public SyrupLaserAction()
     {
-        laserPool = new ObjectPool(dummyLaserHitbox);
     }
     void IAction.Trigger(System.Action endCallback)
     {
@@ -32,25 +30,32 @@ public class SyrupLaserAction : IAction
     {
         if (!isActive)
         {
-            if(Cursor.Instance.ViewPortPos.x > 0.5f)
-            {
-                Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserRight);
-            }
-            else
-            {
-                Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserLeft);
-            }
-            Chef.Instance.HandManager.UpdateHandPosition();
+            UpdateHandState();
             return;
         }
 
         timePassed += dt;
         if (timePassed > runningTime)
         {
-            dummyLaserInstance.Dispose();
-            Chef.Instance.HandManager.EndHandAction();
             endCallback?.Invoke();
             isActive = false;
+        }
+        else if (timePassed > handRestoreTime && timePassed - dt < handRestoreTime)
+        {
+            if (Chef.Instance.ActionHandler.IsActionChanged)
+            {
+                Chef.Instance.HandManager.EndHandAction();
+                endCallback?.Invoke();
+                isActive = false;
+                return;
+            }
+
+            Chef.Instance.HandManager.EndHandAction();
+            UpdateHandState();
+        }
+        else if (timePassed > handRestoreTime)
+        {
+            UpdateHandState();
         }
         else if(timePassed > castingTime && timePassed - dt < castingTime)
         {
@@ -58,10 +63,21 @@ public class SyrupLaserAction : IAction
         }
     }
 
+    private void UpdateHandState()
+    {
+        if (Cursor.Instance.ViewPortPos.x > 0.5f)
+        {
+            Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserRight);
+        }
+        else
+        {
+            Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserLeft);
+        }
+        Chef.Instance.HandManager.UpdateHandPosition();
+    }
+
     private void InstantiateLaser()
     {
         Chef.Instance.HandManager.StartHandAction();
-        dummyLaserInstance = laserPool.Instantiate();
-        dummyLaserInstance.transform.position = new Vector2(0, triggerPos.y);
     }
 }

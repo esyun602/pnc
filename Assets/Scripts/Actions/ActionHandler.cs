@@ -20,6 +20,7 @@ public class ActionHandler
     private ChefAction blockChiefAction = ChefAction.None;
     private bool IsChangeBlocked => (blockChiefAction & ChefAction.ChangeAction) == ChefAction.ChangeAction;
     private bool IsTriggerBlocked => (blockChiefAction & ChefAction.TriggerAction) == ChefAction.TriggerAction;
+    public bool IsActionChanged => currentTriggeredAction != CurrentAction;
 
     public ActionHandler(List<IAction> actionList)
     {

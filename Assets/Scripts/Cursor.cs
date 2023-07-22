@@ -19,7 +19,7 @@ public class Cursor : MonoBehaviour
     private float customLeft = 0f;
     private float customRight = 1f;
 
-    private float speed = 5f;
+    public const float Speed = 5f;
 
     private void Awake()
     {
@@ -68,7 +68,7 @@ public class Cursor : MonoBehaviour
 
     private void ProcessMove()
     {
-        var targetPos = transform.position + currentMoveVector * speed * Time.deltaTime;
+        var targetPos = transform.position + currentMoveVector * Speed * Time.deltaTime;
         transform.position = ModifyPosToCameraGrid(targetPos);
     }
 
