@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     private int jumpCount = 2;
 
     private Vector2 tempDir;
+
+    [SerializeField]
+    private SpriteRenderer dashSprite;
+
     private float dashTime = 0f;
     private bool canDash = false;
     public bool IsMapled { get; set; } = false;
@@ -195,6 +199,18 @@ public class PlayerController : MonoBehaviour
         if (!canDash)
             return;
 
+        dashSprite.gameObject.SetActive(true);
+        if (spriteRenderer.flipX)
+        {
+            dashSprite.flipX = true;
+            dashSprite.transform.localPosition = new Vector3(5, 0, 0);
+        }
+        else
+        {
+            dashSprite.flipX = false;
+            dashSprite.transform.localPosition = new Vector3(-5, 0, 0);
+        }
+
         dashTime += Time.fixedDeltaTime;
         canDash = true;
 
@@ -213,6 +229,7 @@ public class PlayerController : MonoBehaviour
         {
             dashTime = 0;
             canDash = false;
+            dashSprite.gameObject.SetActive(false);
             // 미끄럼 방지
             rig.velocity = Vector2.zero;
         }
