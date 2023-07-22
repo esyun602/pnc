@@ -35,13 +35,19 @@ public class Chef : MonoBehaviour
     [SerializeField]
     private GameObject dummyLaserPrefab;
     [SerializeField]
-
+    private GameObject dummyLaserLeftDangerPrefab;
+    [SerializeField]
+    private GameObject dummyLaserRightDangerPrefab;
+    [SerializeField]
     private GameObject dummyForkPrefab;
     [SerializeField]
     private GameObject dummyRedPrefab;
     [SerializeField]
     private GameObject dummySyrupPrefab;
 
+    [SerializeField]
+    private SkillIconHandler iconHandler;
+    public SkillIconHandler IconHandler => iconHandler;
 
     private ActionHandler actionHandler;
     public ActionHandler ActionHandler => actionHandler;
@@ -70,7 +76,7 @@ public class Chef : MonoBehaviour
         {
             new ForkAction(dummyForkPrefab, dummyRedPrefab),
             new SyrupDropAction(dummyDropPrefab, dummySyrupPrefab),
-            new SyrupLaserAction(),
+            new SyrupLaserAction(dummyLaserLeftDangerPrefab, dummyLaserRightDangerPrefab),
         });
         currentHeadVelocity = initHeadVelocity;
         currentBodyVelocity = initBodyVelocity;
