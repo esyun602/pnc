@@ -14,10 +14,12 @@ public class SyrupDropAction : IAction
     private Vector3 currentHandPos;
 
     private System.Action endCallback;
+    
 
-    public SyrupDropAction(GameObject dummyDrop)
+    public SyrupDropAction(GameObject dummyDrop, GameObject syrup)
     {
         dummyDropPool = new ObjectPool(dummyDrop, 80);
+        DummyDrop.SetSyrupPool(new ObjectPool(syrup, 80));
     }
     void IAction.Trigger(System.Action endCallback)
     {

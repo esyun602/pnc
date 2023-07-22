@@ -19,6 +19,8 @@ public class Chef : MonoBehaviour
     private GameObject dummyDropPrefab;
     [SerializeField]
     private GameObject dummyLaserPrefab;
+    [SerializeField]
+    private GameObject dummySyrupPrefab;
 
     private ActionHandler actionHandler;
     public ActionHandler ActionHandler => actionHandler;
@@ -46,7 +48,7 @@ public class Chef : MonoBehaviour
         new List<IAction>()
         {
             new DummyAction(dummyHitBoxPrefab),
-            new SyrupDropAction(dummyDropPrefab),
+            new SyrupDropAction(dummyDropPrefab, dummySyrupPrefab),
             new SyrupLaserAction(),
         });
     }

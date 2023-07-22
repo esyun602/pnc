@@ -723,6 +723,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7271214864689741111, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: dummySyrupPrefab
+      value: 
+      objectReference: {fileID: 4776554732712610908, guid: 99883721b1c373a4eab93dc6b7afdc68, type: 3}
     - target: {fileID: 8596232637860938212, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
       propertyPath: m_IsActive
       value: 0
