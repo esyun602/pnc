@@ -38,7 +38,7 @@ public class Chef : MonoBehaviour
     private GameObject dummyForkPrefab;
     [SerializeField]
     private GameObject dummyRedPrefab;
-
+    [SerializeField]
     private GameObject dummySyrupPrefab;
 
 
