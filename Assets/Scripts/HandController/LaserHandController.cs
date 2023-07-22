@@ -8,6 +8,7 @@ public class LaserHandController : MonoBehaviour, IHandController
     private GameObject laserObject;
 
     private const float maxHeight = 4f;
+    private const float minHeight = -2.5f;
     private const float velocity = Cursor.Speed * 4;
 
     private float lastEndTime;
@@ -26,7 +27,7 @@ public class LaserHandController : MonoBehaviour, IHandController
         transform.position += moveVector.normalized * moveMagnitude;*/
         if (Time.time - lastEndTime < restoreTIme)
         {
-            var targetPos = new Vector3(transform.position.x, Mathf.Min(Cursor.Instance.WorldPos.y, maxHeight));
+            var targetPos = new Vector3(transform.position.x, Mathf.Clamp(Cursor.Instance.WorldPos.y, minHeight, maxHeight));
 
             var moveVector = targetPos - transform.position;
             var moveMagnitude = velocity * Time.deltaTime;
@@ -38,7 +39,7 @@ public class LaserHandController : MonoBehaviour, IHandController
         }
         else
         {
-            transform.position = new Vector2(transform.position.x, Mathf.Min(Cursor.Instance.WorldPos.y, maxHeight));
+            transform.position = new Vector2(transform.position.x, Mathf.Clamp(Cursor.Instance.WorldPos.y, minHeight, maxHeight));
         }
         return transform.position;
     }

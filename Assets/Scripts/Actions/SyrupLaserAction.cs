@@ -10,7 +10,7 @@ public class SyrupLaserAction : IAction
     private float timePassed = 0;
     private bool isActive = false;
 
-    private Vector2 triggerPos;
+    private Vector2 lastUpdatePos;
 
     private System.Action endCallback;
 
@@ -29,16 +29,15 @@ public class SyrupLaserAction : IAction
     {
         timePassed = 0;
         isActive = true;
-        triggerPos = Cursor.Instance.WorldPos;
         if(Cursor.Instance.ViewPortPos.x < 0.5)
         {
             leftDangerZone.SetActive(true);
-            leftDangerZone.transform.position = new Vector2(0, triggerPos.y);
+            leftDangerZone.transform.position = new Vector2(0, lastUpdatePos.y);
         }
         else
         {
             rightDangerZone.SetActive(true);
-            rightDangerZone.transform.position = new Vector2(0, triggerPos.y);
+            rightDangerZone.transform.position = new Vector2(0, lastUpdatePos.y);
         }
         this.endCallback = endCallback;
     }
@@ -90,7 +89,7 @@ public class SyrupLaserAction : IAction
         {
             Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserLeft);
         }
-        Chef.Instance.HandManager.UpdateHandPosition();
+        lastUpdatePos = Chef.Instance.HandManager.UpdateHandPosition();
     }
 
     private void InstantiateLaser()
