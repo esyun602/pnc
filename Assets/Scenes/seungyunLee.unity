@@ -1409,14 +1409,6 @@ PrefabInstance:
       propertyPath: dummyRedPrefab
       value: 
       objectReference: {fileID: 752679665}
-    - target: {fileID: 7271214864689741111, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
-      propertyPath: dummyLaserLeftDangerPrefab
-      value: 
-      objectReference: {fileID: 1940732364739479391, guid: 63cfb33e0a4dcb544a698e83b3651e1c, type: 3}
-    - target: {fileID: 7271214864689741111, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
-      propertyPath: dummyLaserRightDangerPrefab
-      value: 
-      objectReference: {fileID: 1940732364739479391, guid: 63cfb33e0a4dcb544a698e83b3651e1c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
