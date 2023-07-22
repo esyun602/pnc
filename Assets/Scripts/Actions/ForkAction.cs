@@ -11,7 +11,8 @@ public class ForkAction : IAction
     private float timePassed = 0;
     private bool isActive;
     private GameObject fork, redTarget;
-    private BoxCollider2D forkCol;
+    private DummyFork[] forks;
+    private BoxCollider2D[] forkCol = new BoxCollider2D[2];
 
     private Vector3 targetPos;
 
@@ -21,8 +22,12 @@ public class ForkAction : IAction
     {
         fork = _fork;
         redTarget = _red;
-        forkCol = fork.GetComponentInChildren<DummyFork>().gameObject.GetComponent<BoxCollider2D>();
-        forkCol.enabled = false;
+        forks = fork.GetComponentsInChildren<DummyFork>();
+        forkCol[0] = forks[0].gameObject.GetComponent<BoxCollider2D>();
+        forkCol[1] = forks[1].gameObject.GetComponent<BoxCollider2D>();
+        forkCol[0].enabled = false;
+        forkCol[1].enabled = false;
+        forks[1].gameObject.SetActive(false);
     }
 
     void IAction.Trigger(Action endCallback)
@@ -43,7 +48,6 @@ public class ForkAction : IAction
     // 스킬 실행 중
     void IAction.UpdateFrame(float dt)
     {
-        Debug.Log("TargetPosY: "+targetPos.y);
         if(Cursor.Instance.ViewPortPos.x > 0.5f)
         {
             offset = 0;
@@ -83,10 +87,12 @@ public class ForkAction : IAction
         // 클릭 0.5초 후: 포크를 빠르게 내려 찍음
         else if(timePassed >= 0.5f && timePassed < 1f)
         {
+            SoundManager.Instance.ForkSound();
             fork.transform.position =Vector3.Lerp(fork.transform.position, targetPos + new Vector3(0, -4f, 0), 
                                                     (timePassed - 0.5f) / 0.5f);
             redTarget.SetActive(false);
-            forkCol.enabled = true;
+            forkCol[0].enabled = true;
+            forkCol[1].enabled = true;
         }
 
         // 다시 올라간 후 0.5초 안에 장착 상태로 돌아감
@@ -96,7 +102,8 @@ public class ForkAction : IAction
             Chef.Instance.HandManager.UpdateHandPosition();
             fork.transform.position = Vector3.Lerp(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x + offset, targetPos.y, 0f), 
                                                     (timePassed - 1f) / 0.5f);
-            forkCol.enabled = false;
+            forkCol[0].enabled = false;
+            forkCol[1].enabled = false;
         }
 
         timePassed += dt;
@@ -115,7 +122,8 @@ public class ForkAction : IAction
             {
                 // 높이 돌아오기
                 fork.transform.position = new Vector3(fork.transform.position.x, targetPos.y, 0);
-                forkCol.enabled = false;
+                forkCol[0].enabled = false;
+                forkCol[1].enabled = false;
                 Chef.Instance.HandManager.EndHandAction();
                 endCallback?.Invoke();
                 isActive = false;

@@ -68,12 +68,17 @@ public class GameManager : MonoBehaviour
 
         if (isInOverRoutine)
         {
-            if(Time.time - gameOverTime > overRoutineTime)
+            if (Time.time - gameOverTime > overRoutineTime)
             {
                 Time.timeScale = 1f;
                 isInOverRoutine = false;
                 SceneManager.LoadScene("Clear");
             }
+        }
+
+        if((int)timePassed / 20 > 0 && (int)timePassed % 20 == 0)
+        {
+            SoundManager.Instance.ChefSound();
         }
     }
 }
