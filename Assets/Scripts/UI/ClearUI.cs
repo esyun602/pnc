@@ -65,4 +65,8 @@ public class ClearUI : MonoBehaviour
             SceneManager.LoadScene("Title");
         }
     }
+    public void ClickedReplay()
+    {
+        SceneManager.LoadScene("PncMain");
+    }
 }
