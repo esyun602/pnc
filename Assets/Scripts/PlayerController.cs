@@ -8,14 +8,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movePower = 3f;
     [SerializeField] private float jumpPower = 3f;
 
-    private Vector3 movement;
+    private Vector3 moveVelocity;
     private Rigidbody2D rig;
+    private float customBottom = 0.1f;
+    private float customTop = 1f;
+    private float customLeft = 0f;
+    private float customRight = 1f;
 
     private Vector2 jumpVelocity;
     private bool canJump = false;
     private int jumpCount = 2;
 
+    private Vector2 tempDir;
+    private float dashTime = 0f;
+    private bool canDash = false;
+    public bool IsMapled { get; set; } = false;
+
     // Life
+    private bool godMode = false;
     private int life = 3;
     private SpriteRenderer pancakeImg;
     [SerializeField] private Sprite[] pancakes;
@@ -35,14 +45,18 @@ public class PlayerController : MonoBehaviour
         {
             canJump = true;
 		}
+        if (IsMapled && Input.GetKeyDown(KeyCode.F))
+        {
+            canDash = true;
+        }
     }
     void FixedUpdate()
 	{
 		Move();
 		Jump();
+        PlayerDash();
 	}
 
-    private Vector3 moveVelocity;
 	private void Move()
 	{
         // 움직임 증폭 방지
@@ -58,7 +72,10 @@ public class PlayerController : MonoBehaviour
 			moveVelocity = new Vector3(1.0f, 0.0f, 0.0f);
 		}
 
-		transform.position += moveVelocity * movePower * Time.fixedDeltaTime;
+		var targetPos = transform.position + moveVelocity * movePower * Time.fixedDeltaTime;
+
+        // 이동 제한
+        transform.position = ModifyPosToCameraGrid(targetPos);
 	}
 
 	private void Jump()
@@ -77,7 +94,44 @@ public class PlayerController : MonoBehaviour
         canJump = false;
 	}
 
-    
+    private void PlayerDash()
+    {
+        if (!canDash)
+            return;
+
+        dashTime += Time.fixedDeltaTime;
+        canDash = true;
+
+        // 미끄럼 방지
+        rig.velocity = Vector2.zero;
+        
+        if (tempDir == Vector2.zero)
+        {
+            tempDir = Vector2.right;
+        }
+        
+        rig.velocity += tempDir.normalized * (rig.velocity * movePower * 80f) * Time.deltaTime;
+        rig.velocity = tempDir.normalized * (moveVelocity * movePower * 80f) * Time.deltaTime;
+
+        if (dashTime >= 0.15f)
+        {
+            dashTime = 0;
+            canDash = false;
+            // 미끄럼 방지
+            rig.velocity = Vector2.zero;
+        }
+    }
+
+    //TODO: seperation
+    private Vector2 ModifyPosToCameraGrid(Vector2 checkPosition)
+    {
+        var viewportPosition = Camera.main.WorldToViewportPoint(checkPosition);
+        viewportPosition.x = Mathf.Clamp(viewportPosition.x, customLeft, customRight);
+        viewportPosition.y = Mathf.Clamp(viewportPosition.y, customBottom, customTop);
+
+        return Camera.main.ViewportToWorldPoint(viewportPosition);
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         // 땅에 있을 때는 점프 횟수 초기화
@@ -103,9 +157,14 @@ public class PlayerController : MonoBehaviour
         movePower = jumpPower = 3f;
     }
 
+    
+
     // Life 횟수
     public void AddLife(int count)
     {
+        if(godMode)
+            return;
+        //pancake[3-life].setAc
         life += count;
         pancakeImg.sprite = pancakes[life - 1];
     }
