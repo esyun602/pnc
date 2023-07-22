@@ -41,6 +41,9 @@ public class Chef : MonoBehaviour
     [SerializeField]
     private GameObject dummySyrupPrefab;
 
+    [SerializeField]
+    private SkillIconHandler iconHandler;
+    public SkillIconHandler IconHandler => iconHandler;
 
     private ActionHandler actionHandler;
     public ActionHandler ActionHandler => actionHandler;

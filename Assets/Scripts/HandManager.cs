@@ -14,6 +14,7 @@ public class HandManager : MonoBehaviour
     private ForkHandController leftHandWithFork;
 
     private ChefHandState currentState;
+    public ChefHandState CurrentState => currentState;
     public IHandController CurrentHandController => GetHandObjectByState(currentState);
 
     public void SetHandState(ChefHandState state)
