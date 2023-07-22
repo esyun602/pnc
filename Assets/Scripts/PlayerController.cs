@@ -269,7 +269,7 @@ public class PlayerController : MonoBehaviour
                 collider.offset = new Vector2(collider.offset.x, -1.25f);
                 break;
             default:
-                //gameover
+                GameManager.Instance.GameOver(false);
                 break;
         }
     }

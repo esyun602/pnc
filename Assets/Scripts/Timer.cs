@@ -8,6 +8,6 @@ public class Timer : MonoBehaviour
     private Text textBox;
     void Update()
     {
-        textBox.text = string.Format("%.2f", GameManager.Instance.LeftTime);
+        textBox.text = string.Format("{0:F2}", GameManager.Instance.LeftTime);
     }
 }

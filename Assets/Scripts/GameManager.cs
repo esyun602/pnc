@@ -26,9 +26,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GameOver()
+    public void GameOver(bool panCakeWin)
     {
         isInGame = false;
+        if (panCakeWin)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     public void GameStart()
@@ -41,11 +49,11 @@ public class GameManager : MonoBehaviour
     {
         if (isInGame)
         {
-            timePassed = Time.deltaTime;
+            timePassed += Time.deltaTime;
             if(LeftTime <= 0)
             {
                 timePassed = TimeLimit;
-                GameOver();
+                GameOver(true);
             }
         }
     }

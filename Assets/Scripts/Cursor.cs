@@ -35,6 +35,11 @@ public class Cursor : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.IsInGame)
+        {
+            return;
+        }
+
         DetermineMoveVector();
         ProcessMove();
         
