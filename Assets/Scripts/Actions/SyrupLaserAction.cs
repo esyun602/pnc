@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SyrupLaserAction : IAction
 {
-    private float runningTime = 5f;
-    private float castingTime = 2f;
+    private const float runningTime = 1.25f;
+    private const float handRestoreTime = 0.75f;
+    private const float castingTime = 0.5f;
     private float timePassed = 0;
     private bool isActive = false;
 
@@ -29,29 +30,42 @@ public class SyrupLaserAction : IAction
     {
         if (!isActive)
         {
-            if(Cursor.Instance.ViewPortPos.x > 0.5f)
-            {
-                Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserRight);
-            }
-            else
-            {
-                Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserLeft);
-            }
-            Chef.Instance.HandManager.UpdateHandPosition();
+            UpdateHandState();
             return;
         }
 
         timePassed += dt;
         if (timePassed > runningTime)
         {
-            Chef.Instance.HandManager.EndHandAction();
             endCallback?.Invoke();
             isActive = false;
+        }
+        else if (timePassed > handRestoreTime && timePassed - dt < handRestoreTime)
+        {
+            Chef.Instance.HandManager.EndHandAction();
+            UpdateHandState();
+        }
+        else if (timePassed > handRestoreTime)
+        {
+            UpdateHandState();
         }
         else if(timePassed > castingTime && timePassed - dt < castingTime)
         {
             InstantiateLaser();
         }
+    }
+
+    private void UpdateHandState()
+    {
+        if (Cursor.Instance.ViewPortPos.x > 0.5f)
+        {
+            Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserRight);
+        }
+        else
+        {
+            Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupLaserLeft);
+        }
+        Chef.Instance.HandManager.UpdateHandPosition();
     }
 
     private void InstantiateLaser()

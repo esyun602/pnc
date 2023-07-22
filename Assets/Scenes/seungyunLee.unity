@@ -651,6 +651,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 107575440868410649, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 107575440868410649, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173030709129465665, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357717712675462080, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357717712675462080, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.85
+      objectReference: {fileID: 0}
     - target: {fileID: 2972146387679117661, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
       propertyPath: m_Name
       value: Chef
@@ -695,6 +715,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5175087209564465278, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 53573597e029aec4f86f26d15b51fbe2, type: 3}
+    - target: {fileID: 7166720175745230121, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596232637860938212, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8767310450197170808, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 53573597e029aec4f86f26d15b51fbe2, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
