@@ -7,6 +7,7 @@ public class ForkAction : IAction
 {
     private Action endCallback;
     private float runningTime = 2f;
+    private float handRestoreTime = 1f;
     private float timePassed = 0;
     private bool isActive;
     private GameObject fork, redTarget;
@@ -99,6 +100,20 @@ public class ForkAction : IAction
             //fork.transform.position = new Vector3(Cursor.Instance.WorldPos.x + 3.25f, fork.transform.position.y, 0f);
             isActive = false;
             endCallback();
+        }
+
+        // 스킬 사용했는데 넘어가야 할 때
+        else if (timePassed > handRestoreTime && timePassed - dt < handRestoreTime)
+        {
+            if (Chef.Instance.ActionHandler.IsActionChanged)
+            {
+                Chef.Instance.HandManager.EndHandAction();
+                endCallback?.Invoke();
+                isActive = false;
+                return;
+            }
+
+            Chef.Instance.HandManager.EndHandAction();
         }
     }
 }
