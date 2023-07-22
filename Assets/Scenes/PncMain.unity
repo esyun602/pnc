@@ -1016,6 +1016,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.08
       objectReference: {fileID: 0}
+    - target: {fileID: 7437037612122431793, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8596232637860938212, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1390,7 +1398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movePower: 6
-  jumpPower: 6
+  jumpPower: 13.5
   dashSprite: {fileID: 921667790}
   damageScreenSprite: {fileID: 1779666387}
 --- !u!50 &1546880255
@@ -1408,7 +1416,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
