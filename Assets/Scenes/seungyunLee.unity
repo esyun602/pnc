@@ -405,10 +405,10 @@ Transform:
   m_Children:
   - {fileID: 532354659}
   - {fileID: 1137173199}
-  - {fileID: 1885168413}
-  - {fileID: 1833482618}
   - {fileID: 1489017865}
   - {fileID: 1163845376}
+  - {fileID: 1885168413}
+  - {fileID: 1833482618}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &523257621
@@ -425,10 +425,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forkEnabled: {fileID: 532354658}
   forkDisabled: {fileID: 1137173198}
-  dropEnabled: {fileID: 1885168412}
-  dropDisabled: {fileID: 1833482617}
-  laserEnabled: {fileID: 1489017864}
-  laserDisabled: {fileID: 1163845375}
+  dropEnabled: {fileID: 1489017864}
+  dropDisabled: {fileID: 1163845375}
+  laserEnabled: {fileID: 1885168412}
+  laserDisabled: {fileID: 1833482617}
 --- !u!1 &532354658
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +931,7 @@ GameObject:
   - component: {fileID: 1163845376}
   - component: {fileID: 1163845377}
   m_Layer: 0
-  m_Name: laserDisabled
+  m_Name: dropDisabled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -946,7 +946,7 @@ Transform:
   m_GameObject: {fileID: 1163845375}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1015,7 +1015,7 @@ GameObject:
   - component: {fileID: 1489017865}
   - component: {fileID: 1489017866}
   m_Layer: 0
-  m_Name: laserEnabled
+  m_Name: dropEnabled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1030,7 +1030,7 @@ Transform:
   m_GameObject: {fileID: 1489017864}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1099,7 +1099,7 @@ GameObject:
   - component: {fileID: 1833482618}
   - component: {fileID: 1833482619}
   m_Layer: 0
-  m_Name: dropDisabled
+  m_Name: laserDisabled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1114,7 +1114,7 @@ Transform:
   m_GameObject: {fileID: 1833482617}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1280,7 +1280,7 @@ GameObject:
   - component: {fileID: 1885168413}
   - component: {fileID: 1885168414}
   m_Layer: 0
-  m_Name: dropEnabled
+  m_Name: laserEnabled
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1295,7 +1295,7 @@ Transform:
   m_GameObject: {fileID: 1885168412}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1409,6 +1409,14 @@ PrefabInstance:
       propertyPath: dummyRedPrefab
       value: 
       objectReference: {fileID: 752679665}
+    - target: {fileID: 7271214864689741111, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: dummyLaserLeftDangerPrefab
+      value: 
+      objectReference: {fileID: 1940732364739479391, guid: 63cfb33e0a4dcb544a698e83b3651e1c, type: 3}
+    - target: {fileID: 7271214864689741111, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: dummyLaserRightDangerPrefab
+      value: 
+      objectReference: {fileID: 1940732364739479391, guid: 63cfb33e0a4dcb544a698e83b3651e1c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

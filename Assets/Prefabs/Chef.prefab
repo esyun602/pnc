@@ -1000,9 +1000,12 @@ MonoBehaviour:
   dummyHitBoxPrefab: {fileID: 1827733261288455358, guid: d6c3d9ba62e87cc4882c462416941b91, type: 3}
   dummyDropPrefab: {fileID: 6372375136990710152, guid: 068536b247180ee4ab08ad5dc6569545, type: 3}
   dummyLaserPrefab: {fileID: 2772653174051012431, guid: cdc1694645a900d4ba52c708acfb980d, type: 3}
+  dummyLaserLeftDangerPrefab: {fileID: 1940732364739479391, guid: 63cfb33e0a4dcb544a698e83b3651e1c, type: 3}
+  dummyLaserRightDangerPrefab: {fileID: 1940732364739479391, guid: 63cfb33e0a4dcb544a698e83b3651e1c, type: 3}
   dummyForkPrefab: {fileID: 673600178291758115}
   dummyRedPrefab: {fileID: 0}
   dummySyrupPrefab: {fileID: 4776554732712610908, guid: 99883721b1c373a4eab93dc6b7afdc68, type: 3}
+  iconHandler: {fileID: 0}
   handManager: {fileID: 7855876262948655882}
 --- !u!1 &3373018666933919902
 GameObject:

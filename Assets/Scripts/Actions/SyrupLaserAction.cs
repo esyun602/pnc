@@ -14,15 +14,32 @@ public class SyrupLaserAction : IAction
 
     private System.Action endCallback;
 
-    public SyrupLaserAction()
+    private GameObject leftDangerZone;
+    private GameObject rightDangerZone;
+
+    public SyrupLaserAction(GameObject LaserDangerLeft, GameObject LaserDangerRight)
     {
+        leftDangerZone = Object.Instantiate(LaserDangerLeft);
+        rightDangerZone = Object.Instantiate(LaserDangerRight);
+        leftDangerZone.gameObject.SetActive(false);
+        rightDangerZone.gameObject.SetActive(false);
     }
+
     void IAction.Trigger(System.Action endCallback)
     {
         timePassed = 0;
         isActive = true;
         triggerPos = Cursor.Instance.WorldPos;
-
+        if(Cursor.Instance.ViewPortPos.x < 0.5)
+        {
+            leftDangerZone.SetActive(true);
+            leftDangerZone.transform.position = new Vector2(0, triggerPos.y);
+        }
+        else
+        {
+            rightDangerZone.SetActive(true);
+            rightDangerZone.transform.position = new Vector2(0, triggerPos.y);
+        }
         this.endCallback = endCallback;
     }
 
@@ -78,6 +95,8 @@ public class SyrupLaserAction : IAction
 
     private void InstantiateLaser()
     {
+        leftDangerZone.SetActive(false);
+        rightDangerZone.SetActive(false);
         Chef.Instance.HandManager.StartHandAction();
     }
 }
