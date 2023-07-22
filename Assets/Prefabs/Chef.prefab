@@ -448,6 +448,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2251975957323129533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955885379937003233}
+  m_Layer: 0
+  m_Name: body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &955885379937003233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2251975957323129533}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5626410200783380055}
+  m_Father: {fileID: 3706783885573733777}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2338774294360008839
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,7 +847,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9119806558312875262}
-  - {fileID: 5626410200783380055}
+  - {fileID: 955885379937003233}
   - {fileID: 6835957927199788334}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -831,6 +863,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49dc0db4fc23cb7498cde96f5cc78c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  head: {fileID: 0}
+  body: {fileID: 0}
   dummyHitBoxPrefab: {fileID: 1827733261288455358, guid: d6c3d9ba62e87cc4882c462416941b91, type: 3}
   dummyDropPrefab: {fileID: 6372375136990710152, guid: 068536b247180ee4ab08ad5dc6569545, type: 3}
   dummyLaserPrefab: {fileID: 2772653174051012431, guid: cdc1694645a900d4ba52c708acfb980d, type: 3}
@@ -847,7 +881,7 @@ GameObject:
   - component: {fileID: 5626410200783380055}
   - component: {fileID: 3782889953598207180}
   m_Layer: 0
-  m_Name: body
+  m_Name: bodysprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -861,12 +895,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3373018666933919902}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3706783885573733777}
+  m_Father: {fileID: 955885379937003233}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3782889953598207180
 SpriteRenderer:

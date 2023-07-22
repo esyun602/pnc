@@ -14,6 +14,20 @@ public enum ChefHandState
 public class Chef : MonoBehaviour
 {
     [SerializeField]
+    private Transform head;
+    [SerializeField]
+    private Transform body;
+    private float bodyMoveAccel = -1f;
+    private float headMoveAccel = -1f;
+    private const float roundTime = 2f;
+    private float initHeadVelocity => -headMoveAccel * roundTime / 2;
+    private float initBodyVelocity => -bodyMoveAccel * roundTime / 2;
+    private float currentHeadVelocity;
+    private float currentBodyVelocity;
+    private float headTimePassed = -roundTime/4;
+    private float bodyTimePassed = 0;
+
+    [SerializeField]
     private GameObject dummyHitBoxPrefab;
     [SerializeField]
     private GameObject dummyDropPrefab;
@@ -51,6 +65,8 @@ public class Chef : MonoBehaviour
             new SyrupDropAction(dummyDropPrefab, dummySyrupPrefab),
             new SyrupLaserAction(),
         });
+        currentHeadVelocity = initHeadVelocity;
+        currentBodyVelocity = initBodyVelocity;
     }
 
     void Update()
@@ -58,6 +74,8 @@ public class Chef : MonoBehaviour
         ProcessChangeAction();
         ProcessTriggerAction();
         actionHandler.UpdateFrame(Time.deltaTime);
+
+        UpdateAnimation();
     }
 
     private void ProcessChangeAction()
@@ -78,6 +96,51 @@ public class Chef : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Slash))
         {
             actionHandler.TriggerCurrentAction();
+        }
+    }
+
+    private void UpdateAnimation()
+    {
+        UpdateBody();
+        UpdateHead();
+    }
+
+    private void UpdateBody()
+    {
+        bodyTimePassed += Time.deltaTime;
+        if (bodyTimePassed > roundTime)
+        {
+            bodyTimePassed = 0;
+            bodyMoveAccel *= -1;
+            currentBodyVelocity = initBodyVelocity;
+            body.transform.position = Vector3.zero;
+        }
+        else
+        {
+            currentBodyVelocity += bodyMoveAccel * Time.deltaTime;
+            body.transform.position += Vector3.up * (currentBodyVelocity * Time.deltaTime);
+        }
+    }
+
+    private void UpdateHead()
+    {
+        headTimePassed += Time.deltaTime;
+        if(headTimePassed < 0)
+        {
+            return;
+        }
+
+        if (headTimePassed > roundTime)
+        {
+            headTimePassed = 0;
+            headMoveAccel *= -1;
+            currentHeadVelocity = initHeadVelocity;
+            head.transform.position = Vector3.zero;
+        }
+        else
+        {
+            currentHeadVelocity += headMoveAccel * Time.deltaTime;
+            head.transform.position += Vector3.up * (currentHeadVelocity * Time.deltaTime);
         }
     }
 
