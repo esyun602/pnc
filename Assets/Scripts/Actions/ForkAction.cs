@@ -24,11 +24,11 @@ public class ForkAction : IAction
     {
         this.endCallback = endCallback;
 
-        // 빨간색 잠깐 표시
-        targetPos = new Vector3(Cursor.Instance.WorldPos.x, Cursor.Instance.WorldPos.y, 0f) + new Vector3(0f, -4f, 0f);
+        // 빨간색 잠깐 표시 // 공격 고정 위치 값
+        targetPos = new Vector3(Cursor.Instance.WorldPos.x, fork.transform.position.y, 0f);
         UnityEngine.GameObject.Destroy(UnityEngine.Object.Instantiate(redTarget, targetPos, Quaternion.identity) as GameObject, 0.2f);
-        // 공격 고정 위치 값
-        targetPos = targetPos + new Vector3(0f, 4f, 0f);
+        
+        //targetPos = targetPos + new Vector3(0f, 4f, 0f);
         
         timePassed = 0;
         isActive = true;
@@ -42,11 +42,11 @@ public class ForkAction : IAction
             fork = (UnityEngine.Object.Instantiate(DummyForkPrefab) as GameObject);
         }
 
-        // 포크 천천히 이동
-        fork.transform.position = new Vector3(Vector3.MoveTowards(fork.transform.position, Cursor.Instance.WorldPos, 3f * Time.deltaTime).x, fork.transform.position.y, fork.transform.position.z);
 
         if (!isActive)
         {
+            // 포크 천천히 이동
+            fork.transform.position = new Vector3(Vector3.MoveTowards(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x, fork.transform.position.y, 0f), 3f * Time.deltaTime).x, fork.transform.position.y, fork.transform.position.z);
             return;
         }
 
@@ -75,7 +75,7 @@ public class ForkAction : IAction
         if(timePassed > runningTime)
         {
             // 커서 위치로 포크 즉각 이동
-            fork.transform.position = Cursor.Instance.WorldPos;
+            fork.transform.position = new Vector3(Cursor.Instance.WorldPos.x, fork.transform.position.y, 0f);
             isActive = false;
             endCallback();
         }
