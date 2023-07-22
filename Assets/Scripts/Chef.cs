@@ -46,7 +46,7 @@ public class Chef : MonoBehaviour
         {
             new DummyAction(dummyHitBoxPrefab),
             new SyrupDropAction(dummyDropPrefab),
-            new SyrupLaserAction(dummyLaserPrefab),
+            new SyrupLaserAction(),
         });
     }
 

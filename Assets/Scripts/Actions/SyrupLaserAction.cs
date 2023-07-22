@@ -9,15 +9,12 @@ public class SyrupLaserAction : IAction
     private float timePassed = 0;
     private bool isActive = false;
 
-    private ObjectPool laserPool;
-    private PooledObject dummyLaserInstance;
     private Vector2 triggerPos;
 
     private System.Action endCallback;
 
-    public SyrupLaserAction(GameObject dummyLaserHitbox)
+    public SyrupLaserAction()
     {
-        laserPool = new ObjectPool(dummyLaserHitbox);
     }
     void IAction.Trigger(System.Action endCallback)
     {
@@ -47,7 +44,6 @@ public class SyrupLaserAction : IAction
         timePassed += dt;
         if (timePassed > runningTime)
         {
-            dummyLaserInstance.Dispose();
             Chef.Instance.HandManager.EndHandAction();
             endCallback?.Invoke();
             isActive = false;
@@ -61,7 +57,5 @@ public class SyrupLaserAction : IAction
     private void InstantiateLaser()
     {
         Chef.Instance.HandManager.StartHandAction();
-        dummyLaserInstance = laserPool.Instantiate();
-        dummyLaserInstance.transform.position = new Vector2(0, triggerPos.y);
     }
 }
