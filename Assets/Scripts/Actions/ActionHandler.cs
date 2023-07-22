@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ChiefAction : uint
+public enum ChefAction : uint
 {
     None = 0,
     ChangeAction = 1 << 1,
@@ -15,10 +15,11 @@ public class ActionHandler
     private int curIdx;
 
     public IAction CurrentAction => actionList[curIdx];
+    private IAction currentTriggeredAction = null;
 
-    private ChiefAction blockChiefAction = ChiefAction.None;
-    private bool IsChangeBlocked => (blockChiefAction & ChiefAction.ChangeAction) == ChiefAction.ChangeAction;
-    private bool IsTriggerBlocked => (blockChiefAction & ChiefAction.TriggerAction) == ChiefAction.TriggerAction;
+    private ChefAction blockChiefAction = ChefAction.None;
+    private bool IsChangeBlocked => (blockChiefAction & ChefAction.ChangeAction) == ChefAction.ChangeAction;
+    private bool IsTriggerBlocked => (blockChiefAction & ChefAction.TriggerAction) == ChefAction.TriggerAction;
 
     public ActionHandler(List<IAction> actionList)
     {
@@ -43,7 +44,7 @@ public class ActionHandler
             return;
         }
 
-        curIdx = (curIdx - 1) % actionList.Count;
+        curIdx = (curIdx + actionList.Count - 1) % actionList.Count;
     }
 
     public void TriggerCurrentAction()
@@ -54,22 +55,29 @@ public class ActionHandler
         }
 
         BlockTriggerAction();
-        CurrentAction.Trigger(RestoreTriggerAction);
+        currentTriggeredAction = CurrentAction;
+        CurrentAction.Trigger(EndActionCallback);
     }
 
     //TODO: TBD
     public void UpdateFrame(float dt)
     {
-        CurrentAction.UpdateFrame(dt);
+        (currentTriggeredAction ?? CurrentAction).UpdateFrame(dt);
     }
 
     public void BlockTriggerAction()
     {
-        blockChiefAction |= ChiefAction.TriggerAction;
+        blockChiefAction |= ChefAction.TriggerAction;
+    }
+
+    private void EndActionCallback()
+    {
+        currentTriggeredAction = null;
+        RestoreTriggerAction();
     }
 
     public void RestoreTriggerAction()
     {
-        blockChiefAction &= (~ChiefAction.TriggerAction);
+        blockChiefAction &= (~ChefAction.TriggerAction);
     }
 }

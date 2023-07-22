@@ -9,6 +9,7 @@ public class Cursor : MonoBehaviour
 
     public Vector2 WorldPos => transform.position;
     public Vector2 ScreenPos => Camera.main.ScreenToWorldPoint(transform.position);
+    public Vector2 ViewPortPos => Camera.main.WorldToViewportPoint(WorldPos);
 
     private Vector3 currentMoveVector;
 
