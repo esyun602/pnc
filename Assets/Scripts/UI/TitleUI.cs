@@ -37,6 +37,11 @@ public class TitleUI : MonoBehaviour
         }
     }
 
+    public void ClickedExit()
+    {
+        Application.Quit();
+    }
+
     public void LoadGame()
     {
         SceneManager.LoadScene("PncMain");
