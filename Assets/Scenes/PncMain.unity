@@ -1046,6 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textBox: {fileID: 333513717}
+  maplePrefab: {fileID: 5985482112035098483, guid: f82229c062d10c745b5971626d350c6c, type: 3}
 --- !u!114 &1396005163
 MonoBehaviour:
   m_ObjectHideFlags: 0
