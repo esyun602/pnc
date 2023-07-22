@@ -35,14 +35,14 @@ public class MapleController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Ground")
+        var controller = collision.GetComponent<PlayerController>();
+        if(controller != null)
         {
-            gameObject.SetActive(false);
+            controller.IsMapled = true;
         }
-        else if(collision.gameObject.tag == "Player")
+        else if(collision.tag == "Ground")
         {
             gameObject.SetActive(false);
-            collision.gameObject.SetActive(false);
         }
     }
 }

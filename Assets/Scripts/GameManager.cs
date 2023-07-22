@@ -5,6 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    private bool isInGame;
+    private float timePassed;
+
+    public bool IsInGame => isInGame;
+    public float TimePassed => timePassed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +32,15 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
+        isInGame = true;
+        timePassed = 0f;
+    }
 
+    private void Update()
+    {
+        if (isInGame)
+        {
+            timePassed += Time.deltaTime;
+        }
     }
 }
