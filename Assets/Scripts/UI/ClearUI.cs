@@ -16,14 +16,16 @@ public class ClearUI : MonoBehaviour
         // Chef Win
         if (winner == 0)
         {
-            timeChef.text = GameManager.Instance.TimePassed.ToString();
+            timeChef.text = ((int)GameManager.Instance.LeftTime / 60 % 60).ToString("D2")
+                            +":"+ ((int)GameManager.Instance.LeftTime % 60).ToString("D2");
             pancakeWin.SetActive(false);
             chefWin.SetActive(true);
         }
         // Pancake Win
         else
         {
-            timePancake.text = GameManager.Instance.TimePassed.ToString();
+            timePancake.text = ((int)GameManager.Instance.LeftTime / 60 % 60).ToString("D2")
+                            + ":" + ((int)GameManager.Instance.LeftTime % 60).ToString("D2");
             chefWin.SetActive(false);
             pancakeWin.SetActive(true);
         }
