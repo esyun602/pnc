@@ -8,7 +8,15 @@ public class TitleUI : MonoBehaviour
 {
     [SerializeField] private Sprite startBtn, startClked;
     [SerializeField] private Sprite howToPlayBtn, howToPlayClked;
-
+    [SerializeField] private GameObject howToPlayWin;
+    
+    void Update()
+    {
+        if(howToPlayWin.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        {
+            howToPlayWin.SetActive(false);
+        }
+    }
     public void ChangeBtnImg(Image btn)
     {
         if (btn.sprite == startBtn)
