@@ -61,7 +61,7 @@ public class ForkAction : IAction
         // 클릭 0.5초 후: 포크를 빠르게 내려 찍음
         else if(timePassed >= 0.5f && timePassed < 1f)
         {
-            fork.transform.position =Vector3.Lerp(fork.transform.position, targetPos + new Vector3(0, -3f, 0), (timePassed - 0.5f) / 0.5f);
+            fork.transform.position =Vector3.Lerp(fork.transform.position, targetPos + new Vector3(0, -4f, 0), (timePassed - 0.5f) / 0.5f);
             //Vector3.MoveTowards(fork.transform.position, targetPos + new Vector3(0, -3f, 0), 10f * Time.deltaTime);
         }
 
