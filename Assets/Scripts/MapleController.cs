@@ -39,6 +39,7 @@ public class MapleController : MonoBehaviour
         if(controller != null)
         {
             controller.IsMapled = true;
+            gameObject.SetActive(false);
         }
         else if(collision.tag == "Ground")
         {
