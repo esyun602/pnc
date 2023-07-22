@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text min;
     [SerializeField] private Text col;
     [SerializeField] private Text sec;
+
     private bool ready = false;
     private float time = 0f;
     // Start is called before the first frame update
@@ -40,4 +41,5 @@ public class UIManager : MonoBehaviour
             sec.text = ((int)time % 60).ToString("D2");
         }
     }
+
 }
