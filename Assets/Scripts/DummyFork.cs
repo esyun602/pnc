@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class DummyFork : MonoBehaviour
 {
-    private PlayerController player;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        var controller = collision.gameObject.GetComponent<PlayerController>();
+        if (controller != null)
         {
-            // 팬케이크 생명 하나씩 줄이기
-            if((player = collision.gameObject.GetComponent<PlayerController>()) != null)
-            {
-                
-            }
+            controller.Damage();
         }
     }
 }

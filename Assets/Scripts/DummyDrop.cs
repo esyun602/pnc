@@ -16,9 +16,10 @@ public class DummyDrop : MonoBehaviour
         if (collision.gameObject.GetComponent<DummyHitBox>() == null && collision.gameObject.GetComponent<SyrupArea>() == null)
         {
             GetComponent<PooledObject>().Dispose();
-            if(collision.gameObject.GetComponent<PlayerController>() != null)
+            var controller = collision.gameObject.GetComponent<PlayerController>();
+            if (controller != null)
             {
-                collision.gameObject.SetActive(false);
+                controller.Damage();
                 return;
             }
             var obj = syrupPool.Instantiate();

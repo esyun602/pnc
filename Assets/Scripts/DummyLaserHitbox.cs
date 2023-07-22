@@ -6,9 +6,10 @@ public class DummyLaserHitbox : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        var controller = collision.gameObject.GetComponent<PlayerController>();
+        if (controller != null)
         {
-            collision.gameObject.SetActive(false);
+            controller.Damage();
         }
     }
 }

@@ -27,14 +27,32 @@ public class PlayerController : MonoBehaviour
     // Life
     private bool godMode = false;
     private int life = 3;
-    private SpriteRenderer pancakeImg;
-    [SerializeField] private Sprite[] pancakes;
+    private float lastDamagedTime = -10f;
+    private const float damageScreenTime = 0.25f;
+    private float invincibleTime = 1f;
+    private float damageBlinkTerm = 0.25f;
+
+    private BoxCollider2D collider;
+
+    [SerializeField]
+    private SpriteRenderer damageScreenSprite;
+
+    private Animator animator;
+    private string animationPrefix = "panCake";
+    private string CurrentIdleAnimation => animationPrefix + life + "Idle";
+    private string CurrentWalkAnimation => animationPrefix + life + "Walk";
+
+    private SpriteRenderer spriteRenderer;
+    private float blinkTimePassed = 0f;
+    private float nextBlinkAlpha;
 
     // Start is called before the first frame update
     void Start()
     {
+        collider = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rig = gameObject.GetComponent<Rigidbody2D>();
-        pancakeImg = gameObject.GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -47,9 +65,60 @@ public class PlayerController : MonoBehaviour
 		}
         if (IsMapled && Input.GetKeyDown(KeyCode.F))
         {
+            IsMapled = false;
             canDash = true;
         }
+        ProcessDamageScreen();
+        ProcessPanCakeDamageSprite();
     }
+
+    private void ProcessDamageScreen()
+    {
+        if (Time.time - lastDamagedTime > damageScreenTime)
+        {
+            var color = damageScreenSprite.color;
+            color.a = 0;
+            damageScreenSprite.color = color;
+            return;
+        }
+
+        var ratio = (Time.time - lastDamagedTime) / damageScreenTime;
+        ratio = 1 - ratio;
+
+        var tmp = damageScreenSprite.color;
+        tmp.a = ratio * 0.2f;
+        damageScreenSprite.color = tmp;
+    }
+
+    private void ProcessPanCakeDamageSprite()
+    { 
+        if (Time.time - lastDamagedTime > invincibleTime)
+        {
+            var color = spriteRenderer.color;
+            color.a = 1;
+            spriteRenderer.color = color;
+            return;
+        }
+
+        blinkTimePassed += Time.deltaTime;
+        if(blinkTimePassed >= damageBlinkTerm)
+        {
+            var tmp = spriteRenderer.color;
+            tmp.a = nextBlinkAlpha;
+            spriteRenderer.color = tmp;
+
+            blinkTimePassed = 0f;
+            if(nextBlinkAlpha == 0.5f)
+            {
+                nextBlinkAlpha = 1f;
+            }
+            else
+            {
+                nextBlinkAlpha = 0.5f;
+            }
+        }
+    }
+
     void FixedUpdate()
 	{
 		Move();
@@ -71,6 +140,23 @@ public class PlayerController : MonoBehaviour
         {
 			moveVelocity = new Vector3(1.0f, 0.0f, 0.0f);
 		}
+
+        if(moveVelocity == Vector3.zero)
+        {
+            animator.Play(CurrentIdleAnimation);
+        }
+        else
+        {
+            if(moveVelocity.x < 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if(moveVelocity.x > 0)
+            {
+                spriteRenderer.flipX = false;
+            }
+            animator.Play(CurrentWalkAnimation);
+        }
 
 		var targetPos = transform.position + moveVelocity * movePower * Time.fixedDeltaTime;
 
@@ -157,15 +243,40 @@ public class PlayerController : MonoBehaviour
         movePower = jumpPower = 3f;
     }
 
-    
+    public void Damage()
+    {
+        if(Time.time - lastDamagedTime < invincibleTime)
+        {
+            return;
+        }
+
+        lastDamagedTime = Time.time;
+        blinkTimePassed = damageBlinkTerm;
+        nextBlinkAlpha = 0.5f;
+
+        switch (--life)
+        {
+            case 2:
+                collider.size = new Vector2(collider.size.x, 3.5f);
+                collider.offset = new Vector2(collider.offset.x, -0.75f);
+                break;
+            case 1:
+                collider.size = new Vector2(collider.size.x, 2.5f);
+                collider.offset = new Vector2(collider.offset.x, -1.25f);
+                break;
+            default:
+                //gameover
+                break;
+        }
+    }
 
     // Life 횟수
     public void AddLife(int count)
-    {
+    {/*
         if(godMode)
             return;
         //pancake[3-life].setAc
         life += count;
-        pancakeImg.sprite = pancakes[life - 1];
+        pancakeImg.sprite = pancakes[life - 1];*/
     }
 }

@@ -3300,6 +3300,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -60
       objectReference: {fileID: 0}
+    - target: {fileID: 2205667737797880876, guid: 8643df6caca6e5849ae1633f6f54ea0e, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.71
+      objectReference: {fileID: 0}
     - target: {fileID: 2853392866294136222, guid: 8643df6caca6e5849ae1633f6f54ea0e, type: 3}
       propertyPath: m_Name
       value: RightFork
