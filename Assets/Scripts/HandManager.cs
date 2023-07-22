@@ -23,9 +23,9 @@ public class HandManager : MonoBehaviour
         GetHandObjectByState(currentState).SetActive(true);
     }
     
-    public void UpdateHandPosition()
+    public Vector3 UpdateHandPosition()
     {
-        GetHandObjectByState(currentState).UpdatePosition();
+        return GetHandObjectByState(currentState).UpdatePosition();
     }
 
     public void StartHandAction()

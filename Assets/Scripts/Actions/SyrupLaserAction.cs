@@ -42,6 +42,14 @@ public class SyrupLaserAction : IAction
         }
         else if (timePassed > handRestoreTime && timePassed - dt < handRestoreTime)
         {
+            if (Chef.Instance.ActionHandler.IsActionChanged)
+            {
+                Chef.Instance.HandManager.EndHandAction();
+                endCallback?.Invoke();
+                isActive = false;
+                return;
+            }
+
             Chef.Instance.HandManager.EndHandAction();
             UpdateHandState();
         }

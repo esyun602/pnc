@@ -22,19 +22,41 @@ public class DropHandController : MonoBehaviour, IHandController
     [SerializeField]
     private Transform rightArmRightMargin;
 
-    void IHandController.UpdatePosition()
+    private float lastEndTime;
+    private const float restoreDuration = 1f;
+    private const float restoreVelocity = Cursor.Speed * 4f;
+    private const float runningVelocity = 2f;
+
+    Vector3 IHandController.UpdatePosition()
     {
         //TODO: FIX
-        if (normalSprite.activeSelf)
+        if (actionSprite.activeSelf)
         {
-            transform.position = new Vector2(Cursor.Instance.WorldPos.x, transform.position.y);
+            UpdateMoveByVelocity(runningVelocity);
+        }
+        else if(Time.time - lastEndTime < restoreDuration)
+        {
+            UpdateMoveByVelocity(restoreVelocity);
         }
         else
         {
-            transform.position = new Vector2(Cursor.Instance.WorldPos.x, transform.position.y);
+            transform.position = new Vector3(Cursor.Instance.WorldPos.x, transform.position.y);
         }
-
         UpdateArm();
+        return transform.position;
+    }
+
+    private void UpdateMoveByVelocity(float velocity)
+    {
+        var targetPos = new Vector3(Cursor.Instance.WorldPos.x, transform.position.y);
+
+        var moveVector = targetPos - transform.position;
+        var moveMagnitude = velocity * Time.deltaTime;
+        if (moveVector.magnitude < moveMagnitude)
+        {
+            moveMagnitude = moveVector.magnitude;
+        }
+        transform.position += moveVector.normalized * moveMagnitude;
     }
 
     private void UpdateArm()
@@ -69,6 +91,7 @@ public class DropHandController : MonoBehaviour, IHandController
 
     void IHandController.EndAction()
     {
+        lastEndTime = Time.time;
         actionSprite.SetActive(false);
         normalSprite.SetActive(true);
     }

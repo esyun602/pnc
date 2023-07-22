@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class SyrupDropAction : IAction
 {
-    private float runningTime = 5f;
+    private const float runningTime = 1.5f;
+    private const float handRestoreTime = 1.25f;
+    private const float castingTime = 0.25f;
     private float timePassed = 0;
     private bool isActive = false;
     private ObjectPool dummyDropPool;
     private const float dropHeight = 1.7f;
+    private Vector3 currentHandPos;
 
     private System.Action endCallback;
 
@@ -29,7 +32,7 @@ public class SyrupDropAction : IAction
     void IAction.UpdateFrame(float dt)
     {
         Chef.Instance.HandManager.SetHandState(ChefHandState.SyrupDrop);
-        Chef.Instance.HandManager.UpdateHandPosition();
+        currentHandPos = Chef.Instance.HandManager.UpdateHandPosition();
         if (!isActive)
         {
             return;
@@ -38,14 +41,25 @@ public class SyrupDropAction : IAction
         timePassed += dt;
         if (timePassed > runningTime)
         {
-            Chef.Instance.HandManager.EndHandAction();
             endCallback?.Invoke();
             isActive = false;
         }
-        else
+        else if (timePassed > handRestoreTime && timePassed - dt < handRestoreTime)
+        {
+            if (Chef.Instance.ActionHandler.IsActionChanged)
+            {
+                Chef.Instance.HandManager.EndHandAction();
+                endCallback?.Invoke();
+                isActive = false;
+                return;
+            }
+
+            Chef.Instance.HandManager.EndHandAction();
+        }
+        else if (timePassed > castingTime && timePassed < handRestoreTime)
         {
             var newTransfrom = dummyDropPool.Instantiate().transform;
-            newTransfrom.position = new Vector2(Cursor.Instance.WorldPos.x, dropHeight);
+            newTransfrom.position = new Vector2(currentHandPos.x, dropHeight);
         }
     }
 }

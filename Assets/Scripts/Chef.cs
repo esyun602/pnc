@@ -21,6 +21,7 @@ public class Chef : MonoBehaviour
     private GameObject dummyLaserPrefab;
 
     private ActionHandler actionHandler;
+    public ActionHandler ActionHandler => actionHandler;
     [SerializeField]
     private HandManager handManager;
     public HandManager HandManager => handManager;

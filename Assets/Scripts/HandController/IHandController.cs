@@ -6,6 +6,6 @@ public interface IHandController
 {
     public void StartAction();
     public void EndAction();
-    public void UpdatePosition();
+    public Vector3 UpdatePosition();
     public void SetActive(bool activeState);
 }

@@ -13,7 +13,7 @@ public class LaserHandController : MonoBehaviour, IHandController
     private float lastEndTime;
     private const float restoreTIme = 1f;
 
-    void IHandController.UpdatePosition()
+    Vector3 IHandController.UpdatePosition()
     {/*
         var targetPos = new Vector3(transform.position.x, Mathf.Min(Cursor.Instance.WorldPos.y, maxHeight));
         var moveVector = targetPos - transform.position;
@@ -40,6 +40,7 @@ public class LaserHandController : MonoBehaviour, IHandController
         {
             transform.position = new Vector2(transform.position.x, Mathf.Min(Cursor.Instance.WorldPos.y, maxHeight));
         }
+        return transform.position;
     }
 
     void IHandController.SetActive(bool activeState)
