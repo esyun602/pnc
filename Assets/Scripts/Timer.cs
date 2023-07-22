@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour
     private GameObject maplePrefab;
 
     private float currentMapleTime = 45f;
+    private float currentPhaseShiftTime = 40f;
     private const float genHalfWidth = 0.3f;
 
     void Update()
@@ -28,6 +29,16 @@ public class Timer : MonoBehaviour
             if(currentMapleTime == 0)
             {
                 currentMapleTime = -10000;
+            }
+        }
+
+        if(GameManager.Instance.LeftTime < currentPhaseShiftTime)
+        {
+            Chef.Instance.SetNextPhase();
+            currentPhaseShiftTime -= 20f;
+            if(currentPhaseShiftTime == 0)
+            {
+                currentPhaseShiftTime = -10000;
             }
         }
     }

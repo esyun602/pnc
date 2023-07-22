@@ -840,6 +840,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 931951851095034351, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1812811655209497521, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2972146387679117661, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
       propertyPath: m_Name
       value: Chef
@@ -884,6 +892,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4088826496198423298, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4118301599310581508, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878703007635222123, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5841133699112364460, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6237508855152354615, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998521202691879698, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7271214864689741111, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
       propertyPath: iconHandler
       value: 
@@ -892,6 +924,14 @@ PrefabInstance:
       propertyPath: dummyRedPrefab
       value: 
       objectReference: {fileID: 904751074}
+    - target: {fileID: 7287588486754943882, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7371994524619922523, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.08
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

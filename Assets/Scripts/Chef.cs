@@ -17,6 +17,14 @@ public class Chef : MonoBehaviour
     private Transform head;
     [SerializeField]
     private Transform body;
+    [SerializeField]
+    private Transform headPhase2;
+    [SerializeField]
+    private Transform headPhase3;
+
+    private Transform currentHead;
+    private int phase = 1;
+
     private float bodyMoveAccel = -1f;
     private float headMoveAccel = -1f;
     private const float roundTime = 2f;
@@ -80,6 +88,7 @@ public class Chef : MonoBehaviour
         });
         currentHeadVelocity = initHeadVelocity;
         currentBodyVelocity = initBodyVelocity;
+        currentHead = head;
     }
 
     void Update()
@@ -153,18 +162,37 @@ public class Chef : MonoBehaviour
             headTimePassed = 0;
             headMoveAccel *= -1;
             currentHeadVelocity = initHeadVelocity;
-            head.transform.position = Vector3.zero;
+            currentHead.transform.position = Vector3.zero;
         }
         else
         {
             currentHeadVelocity += headMoveAccel * Time.deltaTime;
-            head.transform.position += Vector3.up * (currentHeadVelocity * Time.deltaTime);
+            currentHead.transform.position += Vector3.up * (currentHeadVelocity * Time.deltaTime);
         }
     }
 
     public void SetChefHandState(ChefHandState state)
     {
         handManager.SetHandState(state);
+    }
+
+    public void SetNextPhase()
+    {
+        phase++;
+        if(phase == 2)
+        {
+            currentHead.gameObject.SetActive(false);
+            headPhase2.position = currentHead.position;
+            currentHead = headPhase2;
+            currentHead.gameObject.SetActive(true);
+        }
+        else if(phase == 3)
+        {
+            currentHead.gameObject.SetActive(false);
+            headPhase3.position = currentHead.position;
+            currentHead = headPhase3;
+            currentHead.gameObject.SetActive(true);
+        }
     }
 
 }
