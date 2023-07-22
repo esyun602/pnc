@@ -9,15 +9,14 @@ public class ForkAction : IAction
     private float runningTime = 2f;
     private float timePassed = 0;
     private bool isActive;
-    private GameObject fork;
-    private UnityEngine.Object DummyForkPrefab, redTarget;
+    private GameObject fork, redTarget;
 
     private Vector3 targetPos;
 
-    public ForkAction(UnityEngine.Object fork, UnityEngine.Object red)
+    public ForkAction(GameObject _fork, GameObject _red)
     {
-        DummyForkPrefab = fork;
-        redTarget = red;
+        fork = _fork;
+        redTarget = _red;
     }
 
     void IAction.Trigger(Action endCallback)
@@ -25,10 +24,12 @@ public class ForkAction : IAction
         this.endCallback = endCallback;
 
         // 빨간색 잠깐 표시
-        targetPos = new Vector3(Cursor.Instance.WorldPos.x, fork.transform.position.y, 0f) + new Vector3(0.6706395f - 0.66f, -4.65f, 0f);
-        UnityEngine.GameObject.Destroy(UnityEngine.Object.Instantiate(redTarget, targetPos, Quaternion.identity) as GameObject, 0.2f);
+        targetPos = new Vector3(Cursor.Instance.WorldPos.x + 3.25f, fork.transform.position.y, 0f)
+                     + new Vector3(-3.25f, -2.3f, 0f);
+        redTarget.SetActive(true);
+        redTarget.transform.position = targetPos;
         // 공격 고정 위치 값
-        targetPos = targetPos + new Vector3(-0.6706395f, 4.65f, 0f);
+        targetPos = targetPos + new Vector3(3.25f, 2.3f, 0f);
         
         timePassed = 0;
         isActive = true;
@@ -36,47 +37,52 @@ public class ForkAction : IAction
     // 스킬 실행 중
     void IAction.UpdateFrame(float dt)
     {
+        // 팔 움직임
+        Chef.Instance.HandManager.SetHandState(ChefHandState.Fork);
+        Chef.Instance.HandManager.UpdateHandPosition();
         // 첫 포크 생성
-        if(!fork)
+        if(fork.activeSelf == false)
         {
-            fork = (UnityEngine.Object.Instantiate(DummyForkPrefab) as GameObject);
-            fork.transform.position += new Vector3(-0.66f, 3.6f, 0f);
+            fork.SetActive(true);
         }
 
 
         if (!isActive)
         {
             // 포크 천천히 이동
-            fork.transform.position = new Vector3(Vector3.MoveTowards(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x - 0.66f, fork.transform.position.y, 0f), 3f * Time.deltaTime).x, fork.transform.position.y, fork.transform.position.z);
+            fork.transform.position = Vector3.MoveTowards(fork.transform.position,
+                                            new Vector3(Cursor.Instance.WorldPos.x + 3.25f, fork.transform.position.y, 0f), 3f * Time.deltaTime);
             return;
         }
 
         // 클릭 0.5초 안에: 타겟 향해 좌우 이동
         if(timePassed >= 0f && timePassed < 0.5f)
         {
-            //fork.transform.position = new Vector3(Vector3.MoveTowards(fork.transform.position, Cursor.Instance.WorldPos, 3f * Time.deltaTime).x, fork.transform.position.y, fork.transform.position.z);
-            fork.transform.position = Vector3.Lerp(fork.transform.position, targetPos, timePassed / 0.5f);
+            fork.transform.position = Vector3.Lerp(fork.transform.position, targetPos, 
+                                                    timePassed / 0.5f);
+            
         }
 
         // 클릭 0.5초 후: 포크를 빠르게 내려 찍음
         else if(timePassed >= 0.5f && timePassed < 1f)
         {
-            fork.transform.position =Vector3.Lerp(fork.transform.position, targetPos + new Vector3(0, -4f, 0), (timePassed - 0.5f) / 0.5f);
-            //Vector3.MoveTowards(fork.transform.position, targetPos + new Vector3(0, -3f, 0), 10f * Time.deltaTime);
+            fork.transform.position =Vector3.Lerp(fork.transform.position, targetPos + new Vector3(0, -4f, 0), 
+                                                    (timePassed - 0.5f) / 0.5f);
+            redTarget.SetActive(false);
         }
 
         // 다시 올라간 후 0.5초 안에 장착 상태로 돌아감
         else
         {
-            //fork.transform.position = Vector3.MoveTowards(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x, prevY, 0f), 3f * Time.deltaTime);
-            fork.transform.position = Vector3.Lerp(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x - 0.66f, targetPos.y, 0f), (timePassed - 1f) / 0.5f);
+            fork.transform.position = Vector3.Lerp(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x + 3.25f, targetPos.y, 0f), 
+                                                    (timePassed - 1f) / 0.5f);
         }
 
         timePassed += dt;
         if(timePassed > runningTime)
         {
             // 커서 위치로 포크 즉각 이동
-            fork.transform.position = new Vector3(Cursor.Instance.WorldPos.x - 0.66f, fork.transform.position.y, 0f);
+            fork.transform.position = new Vector3(Cursor.Instance.WorldPos.x + 3.25f, fork.transform.position.y, 0f);
             isActive = false;
             endCallback();
         }
