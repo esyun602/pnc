@@ -7,9 +7,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     private bool isInGame;
     private float timePassed;
-
-    public bool IsInGame => isInGame;
+    public const float TimeLimit = 60f;
     public float TimePassed => timePassed;
+    public float LeftTime => TimeLimit - timePassed;
+    public bool IsInGame => isInGame;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-
+        isInGame = false;
     }
 
     public void GameStart()
@@ -40,7 +41,12 @@ public class GameManager : MonoBehaviour
     {
         if (isInGame)
         {
-            timePassed += Time.deltaTime;
+            timePassed = Time.deltaTime;
+            if(LeftTime <= 0)
+            {
+                timePassed = TimeLimit;
+                GameOver();
+            }
         }
     }
 }

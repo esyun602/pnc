@@ -121,7 +121,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
 	{
-		Move();
+        if (!GameManager.Instance.IsInGame)
+        {
+            return;
+        }
+        Move();
 		Jump();
         PlayerDash();
 	}

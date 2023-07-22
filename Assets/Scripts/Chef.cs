@@ -84,11 +84,16 @@ public class Chef : MonoBehaviour
 
     void Update()
     {
+        UpdateAnimation();
+        if (!GameManager.Instance.IsInGame)
+        {
+            return;
+        }
+
         ProcessChangeAction();
         ProcessTriggerAction();
         actionHandler.UpdateFrame(Time.deltaTime);
 
-        UpdateAnimation();
     }
 
     private void ProcessChangeAction()
