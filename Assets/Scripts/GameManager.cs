@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,12 +33,14 @@ public class GameManager : MonoBehaviour
         isInGame = false;
         if (panCakeWin)
         {
-
+            winner = 1;
         }
         else
         {
-
+            winner = 0;
         }
+
+        SceneManager.LoadScene("Clear");
     }
 
     public void GameStart()

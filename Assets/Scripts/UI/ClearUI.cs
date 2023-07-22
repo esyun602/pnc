@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ClearUI : MonoBehaviour
 {
@@ -10,8 +11,13 @@ public class ClearUI : MonoBehaviour
     [SerializeField] private RectTransform chefResult, pancakeResult, chefWinner, pancakeWinner;
     [SerializeField] private Text timeChef, timePancake;
     Vector3 minus, plus;
+
+    private float timePassed;
+    private bool escaping;
     void Start()
     {
+        timePassed = 0f;
+
         winner = GameManager.Instance.winner;
         // Chef Win
         if (winner == 0)
@@ -35,6 +41,11 @@ public class ClearUI : MonoBehaviour
     }
     void Update()
     {
+        if (escaping)
+        {
+            return;
+        }
+
         if (winner == 0)
         {
             chefResult.position = Vector3.MoveTowards(chefResult.position, new Vector3(minus.x, chefResult.position.y, 0), 300f * Time.deltaTime);
@@ -45,6 +56,13 @@ public class ClearUI : MonoBehaviour
         {
             pancakeResult.position = Vector3.MoveTowards(pancakeResult.position, new Vector3(minus.x, pancakeResult.position.y, 0), 300f * Time.deltaTime);
             pancakeWinner.position = Vector3.MoveTowards(pancakeWinner.position, new Vector3(plus.x, pancakeWinner.position.y, 0), 300f * Time.deltaTime);
+        }
+
+        timePassed += Time.deltaTime;
+        if(timePassed > 2f && Input.GetKeyDown(KeyCode.Escape))
+        {
+            escaping = true;
+            SceneManager.LoadScene("Title");
         }
     }
 }
