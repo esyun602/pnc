@@ -49,6 +49,12 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canJump = false;
+        jumpCount = 2;
+        dashTime = 0f;
+        canDash = false;
+        IsMapled = false;
+
         collider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         rig = gameObject.GetComponent<Rigidbody2D>();

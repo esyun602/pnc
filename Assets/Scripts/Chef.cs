@@ -79,6 +79,11 @@ public class Chef : MonoBehaviour
 
     private void Start()
     {
+        bodyMoveAccel = -1f;
+        headMoveAccel = -1f;
+        headTimePassed = -roundTime / 4;
+        bodyTimePassed = 0;
+
         actionHandler = new ActionHandler(
         new List<IAction>()
         {
@@ -89,6 +94,7 @@ public class Chef : MonoBehaviour
         currentHeadVelocity = initHeadVelocity;
         currentBodyVelocity = initBodyVelocity;
         currentHead = head;
+        InitializePhase();
     }
 
     void Update()
@@ -193,6 +199,15 @@ public class Chef : MonoBehaviour
             currentHead = headPhase3;
             currentHead.gameObject.SetActive(true);
         }
+    }
+
+    private void InitializePhase()
+    {
+        phase = 1;
+        head.gameObject.SetActive(true);
+        head.position = Vector3.zero;
+        headPhase2.gameObject.SetActive(false);
+        headPhase3.gameObject.SetActive(false);
     }
 
 }

@@ -13,32 +13,42 @@ public class Timer : MonoBehaviour
     private float currentPhaseShiftTime = 40f;
     private const float genHalfWidth = 0.3f;
 
+    private void Start()
+    {
+        currentMapleTime = 45f;
+        currentPhaseShiftTime = 40f;
+        textBox.text = "60.00";
+    }
+
     void Update()
     {
-        textBox.text = string.Format("{0:F2}", GameManager.Instance.LeftTime);
-
-        if(GameManager.Instance.LeftTime < currentMapleTime)
+        if (GameManager.Instance.IsInGame)
         {
-            var randX = Random.Range(0.5f - genHalfWidth, 0.5f + genHalfWidth);
-            var genPos = Camera.main.ViewportToWorldPoint(new Vector2(randX, 1));
-            genPos.z = 0;
-            var maple = Instantiate(maplePrefab);
-            maple.transform.position = genPos;
+            textBox.text = string.Format("{0:F2}", GameManager.Instance.LeftTime);
 
-            currentMapleTime -= 15f;
-            if(currentMapleTime == 0)
+            if (GameManager.Instance.LeftTime < currentMapleTime)
             {
-                currentMapleTime = -10000;
+                var randX = Random.Range(0.5f - genHalfWidth, 0.5f + genHalfWidth);
+                var genPos = Camera.main.ViewportToWorldPoint(new Vector2(randX, 1));
+                genPos.z = 0;
+                var maple = Instantiate(maplePrefab);
+                maple.transform.position = genPos;
+
+                currentMapleTime -= 15f;
+                if (currentMapleTime == 0)
+                {
+                    currentMapleTime = -10000;
+                }
             }
-        }
 
-        if(GameManager.Instance.LeftTime < currentPhaseShiftTime)
-        {
-            Chef.Instance.SetNextPhase();
-            currentPhaseShiftTime -= 20f;
-            if(currentPhaseShiftTime == 0)
+            if (GameManager.Instance.LeftTime < currentPhaseShiftTime)
             {
-                currentPhaseShiftTime = -10000;
+                Chef.Instance.SetNextPhase();
+                currentPhaseShiftTime -= 20f;
+                if (currentPhaseShiftTime == 0)
+                {
+                    currentPhaseShiftTime = -10000;
+                }
             }
         }
     }
