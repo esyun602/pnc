@@ -5,8 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Movement
-    [SerializeField] private float movePower = 3f;
-    [SerializeField] private float jumpPower = 3f;
+    [SerializeField] private float movePower;
+    [SerializeField] private float jumpPower;
+
+    private float originMovePower;
+    private float originJumpPower;
+
+    private const float slowMovePower = 2f;
 
     private Vector3 moveVelocity;
     private Rigidbody2D rig;
@@ -50,6 +55,8 @@ public class PlayerController : MonoBehaviour
     private float blinkTimePassed = 0f;
     private float nextBlinkAlpha;
 
+    private float lastSlowDownTime = -10f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +65,10 @@ public class PlayerController : MonoBehaviour
         dashTime = 0f;
         canDash = false;
         IsMapled = false;
+        lastSlowDownTime = -10f;
+
+        originMovePower = movePower;
+        originJumpPower = jumpPower;
 
         collider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -80,6 +91,15 @@ public class PlayerController : MonoBehaviour
         }
         ProcessDamageScreen();
         ProcessPanCakeDamageSprite();
+
+        if (Time.time - lastSlowDownTime < 1f)
+        {
+            movePower = slowMovePower;
+        }
+        else
+        {
+            movePower = originMovePower;
+        }
     }
 
     private void ProcessDamageScreen()
@@ -261,15 +281,16 @@ public class PlayerController : MonoBehaviour
         // 시럽 장판에 닿았을 때 이동속도 저하
         if(other.gameObject.tag == "Syrup")
         {
-            StartCoroutine(SlowDown());
+            lastSlowDownTime = Time.time;
         }  
     }
 
     private IEnumerator SlowDown()
     {
-        movePower = jumpPower = 0.5f;
+        movePower = slowMovePower;
         yield return new WaitForSeconds(1f);
-        movePower = jumpPower = 3f;
+        movePower = originMovePower;
+        jumpPower = originJumpPower;
     }
 
     public void Damage()

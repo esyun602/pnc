@@ -13,15 +13,17 @@ public class DummyDrop : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<DummyHitBox>() == null && collision.gameObject.GetComponent<SyrupArea>() == null)
+        var controller = collision.gameObject.GetComponent<PlayerController>();
+        if (controller != null)
         {
             GetComponent<PooledObject>().Dispose();
-            var controller = collision.gameObject.GetComponent<PlayerController>();
-            if (controller != null)
-            {
-                controller.Damage();
-                return;
-            }
+            controller.Damage();
+            return;
+        }
+
+        if(collision.gameObject.tag == "Ground")
+        {
+            GetComponent<PooledObject>().Dispose();
             var obj = syrupPool.Instantiate();
             obj.transform.position = transform.position;
         }
