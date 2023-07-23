@@ -16,7 +16,6 @@ public class ForkHandController : MonoBehaviour, IHandController
     [SerializeField]
     private Transform rightArm, rightFork;
 
-    private float offset;
 
 
 
@@ -25,7 +24,7 @@ public class ForkHandController : MonoBehaviour, IHandController
     {
         // 팔 천천히 이동
         transform.position = Vector3.MoveTowards(transform.position,
-                                        new Vector3(Cursor.Instance.WorldPos.x + offset, transform.position.y, 0f), 3f * Time.deltaTime);
+                                        new Vector3(Cursor.Instance.WorldPos.x, transform.position.y, 0f), 3f * Time.deltaTime);
 
         UpdateArm();
         return transform.position;
@@ -37,16 +36,28 @@ public class ForkHandController : MonoBehaviour, IHandController
         // 오른쪽
         if (viewPortX > 0.5f)
         {
+            // Phase 3: 양손일 떄는 유지
+            if (rightArm.gameObject.activeSelf)
+            {
+                rightArm.gameObject.SetActive(true); rightFork.gameObject.SetActive(true);
+                return;
+            }
             rightArm.gameObject.SetActive(true);    rightFork.gameObject.SetActive(true);
+            
             leftArm.gameObject.SetActive(false);    leftFork.gameObject.SetActive(false);
-            offset = 0;
         }
         // 왼쪽
         else
         {
+            // Phase 3: 양손일 떄는 유지
+            if (leftArm.gameObject.activeSelf)
+            {
+                leftArm.gameObject.SetActive(true); leftFork.gameObject.SetActive(true);
+                return;
+            }
             leftArm.gameObject.SetActive(true);     leftFork.gameObject.SetActive(true);
+            
             rightArm.gameObject.SetActive(false);   rightFork.gameObject.SetActive(false);
-            offset = 0;
         }
     }
 
@@ -57,13 +68,11 @@ public class ForkHandController : MonoBehaviour, IHandController
 
     void IHandController.StartAction()
     {
-        normalSprite.SetActive(true);
-        actionSprite.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     void IHandController.EndAction()
     {
-        actionSprite.SetActive(false);
-        normalSprite.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
