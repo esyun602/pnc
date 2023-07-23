@@ -302,6 +302,7 @@ public class PlayerController : MonoBehaviour
 
         // sound
         SoundManager.Instance.PancakeDamaged();
+        Chef.Instance.SetLaugh();
         Invoke("AttackSucceed", 0.1f);
 
         lastDamagedTime = Time.time;

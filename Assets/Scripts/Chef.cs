@@ -21,6 +21,8 @@ public class Chef : MonoBehaviour
     private Transform headPhase2;
     [SerializeField]
     private Transform headPhase3;
+    [SerializeField]
+    private Transform laughHead;
 
     private Transform currentHead;
     private int phase = 1;
@@ -34,6 +36,10 @@ public class Chef : MonoBehaviour
     private float currentBodyVelocity;
     private float headTimePassed = -roundTime/4;
     private float bodyTimePassed = 0;
+
+    private float laughDuration = 1f;
+    private float lastLaughTime = -10f;
+    private bool laughing = false;
 
 
     [SerializeField]
@@ -83,6 +89,8 @@ public class Chef : MonoBehaviour
         headMoveAccel = -1f;
         headTimePassed = -roundTime / 4;
         bodyTimePassed = 0;
+        lastLaughTime = -10f;
+        laughing = false;
 
         actionHandler = new ActionHandler(
         new List<IAction>()
@@ -134,6 +142,27 @@ public class Chef : MonoBehaviour
 
     private void UpdateAnimation()
     {
+        if(Time.time - lastLaughTime < laughDuration)
+        {
+            if(currentHead != laughHead)
+            {
+                currentHead.gameObject.SetActive(false);
+                laughHead.gameObject.SetActive(true);
+
+                laughHead.position = currentHead.position;
+                currentHead = laughHead;
+            }
+        }
+        else if(laughing)
+        {
+            laughing = false;
+            var phaseHead = GetCurrentPhaseHead();
+            phaseHead.position = currentHead.position;
+            phaseHead.gameObject.SetActive(true);
+            laughHead.gameObject.SetActive(false);
+
+            currentHead = phaseHead;
+        }
         UpdateBody();
         UpdateHead();
     }
@@ -201,6 +230,19 @@ public class Chef : MonoBehaviour
         }
     }
 
+    public Transform GetCurrentPhaseHead()
+    {
+        if(phase == 1)
+        {
+            return head;
+        }
+        else if(phase == 2)
+        {
+            return headPhase2;
+        }
+        return headPhase3;
+    }
+
     private void InitializePhase()
     {
         phase = 1;
@@ -208,6 +250,17 @@ public class Chef : MonoBehaviour
         head.position = Vector3.zero;
         headPhase2.gameObject.SetActive(false);
         headPhase3.gameObject.SetActive(false);
+    }
+
+    public void SetLaugh()
+    {
+        if(phase >= 3)
+        {
+            return;
+        }
+
+        lastLaughTime = Time.time;
+        laughing = true;
     }
 
 }
