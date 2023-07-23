@@ -842,7 +842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 921667791}
   - component: {fileID: 921667790}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: dash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1281,7 +1281,7 @@ GameObject:
   - component: {fileID: 1546880254}
   - component: {fileID: 1546880253}
   - component: {fileID: 1546880252}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PanCake
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1370,6 +1370,7 @@ MonoBehaviour:
   jumpPower: 13.5
   dashSprite: {fileID: 921667790}
   damageScreenSprite: {fileID: 1779666387}
+  syrupCake: {fileID: 1413512049169590812, guid: 55723570766da164ead144847b93429c, type: 3}
 --- !u!50 &1546880255
 Rigidbody2D:
   serializedVersion: 4
