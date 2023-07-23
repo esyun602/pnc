@@ -1553,6 +1553,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartUI
       objectReference: {fileID: 0}
+    - target: {fileID: 7712121446173910287, guid: 2445b8b7b0a2eb740876c083f311b715, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -304
+      objectReference: {fileID: 0}
     - target: {fileID: 9185543498550669958, guid: 2445b8b7b0a2eb740876c083f311b715, type: 3}
       propertyPath: m_Pivot.x
       value: 0
