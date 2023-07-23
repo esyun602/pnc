@@ -9,7 +9,7 @@ public class DummyLaserHitbox : MonoBehaviour
         var controller = collision.gameObject.GetComponent<PlayerController>();
         if (controller != null)
         {
-            controller.Damage();
+            controller.Damage(true);
         }
     }
 }

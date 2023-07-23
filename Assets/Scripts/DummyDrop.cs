@@ -17,7 +17,7 @@ public class DummyDrop : MonoBehaviour
         if (controller != null)
         {
             GetComponent<PooledObject>().Dispose();
-            controller.Damage();
+            controller.Damage(true);
             return;
         }
 

@@ -57,6 +57,10 @@ public class PlayerController : MonoBehaviour
 
     private float lastSlowDownTime = -10f;
 
+    [SerializeField]
+    private Rigidbody2D syrupCake;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -298,7 +302,7 @@ public class PlayerController : MonoBehaviour
         jumpPower = originJumpPower;
     }
 
-    public void Damage()
+    public void Damage(bool isSyrup)
     {
         if(Time.time - lastDamagedTime < invincibleTime)
         {
@@ -313,6 +317,13 @@ public class PlayerController : MonoBehaviour
         lastDamagedTime = Time.time;
         blinkTimePassed = damageBlinkTerm;
         nextBlinkAlpha = 0.5f;
+
+        if (life != 1 && isSyrup)
+        {
+            var obj = Instantiate(syrupCake);
+            obj.transform.position = transform.position;
+            obj.velocity = new Vector2(-1, 9);
+        }
 
         switch (--life)
         {
