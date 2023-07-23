@@ -23,6 +23,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource pewpew9;
     // pewpew17: 단풍잎 획득할 때 소리
     [SerializeField] private AudioSource pewpew17;
+    // BGM
+    [SerializeField] private AudioSource BGM;
+    // INGAME BGM
+    [SerializeField] private AudioSource IngameBGM;
 
     public void PancakeDamaged()
     {
@@ -68,6 +72,22 @@ public class SoundManager : MonoBehaviour
         pewpew17.Play();
     }
     
+    public void PlayBGM(bool stop)
+    {
+        if(stop)
+        {BGM.Play();}
+        else
+        {BGM.Pause();}
+    }
+
+    public void PlayIngameBGM(bool stop)
+    {
+        if (stop)
+        { IngameBGM.Play(); }
+        else
+        { IngameBGM.Pause(); }
+    }
+
     void Awake()
     {
         if (null == instance)

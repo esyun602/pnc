@@ -16,6 +16,9 @@ public class ClearUI : MonoBehaviour
     private bool escaping;
     void Start()
     {
+        SoundManager.Instance.PlayIngameBGM(false);
+        SoundManager.Instance.PlayBGM(true);
+
         timePassed = 0f;
 
         winner = GameManager.Instance.winner;

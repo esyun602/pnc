@@ -11,6 +11,9 @@ public class GameStarter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SoundManager.Instance.PlayBGM(false);
+        SoundManager.Instance.PlayIngameBGM(true);
+
         text = GetComponent<Text>();
         timePassed = 0f;
         runTime = 3f;

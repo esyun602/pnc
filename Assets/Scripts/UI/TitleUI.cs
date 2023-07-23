@@ -9,6 +9,19 @@ public class TitleUI : MonoBehaviour
     [SerializeField] private Sprite startBtn, startClked;
     [SerializeField] private Sprite howToPlayBtn, howToPlayClked;
     [SerializeField] private GameObject howToPlayWin;
+
+    [SerializeField] private GameObject creditWin;
+    [SerializeField] private RectTransform left, right;
+    Vector3 minus, plus;
+    bool canMove = false;
+
+    void Start()
+    {
+        SoundManager.Instance.PlayIngameBGM(false);
+        SoundManager.Instance.PlayBGM(true);
+        minus = Camera.main.WorldToScreenPoint(new Vector3(-5f, 0, 0));
+        plus = Camera.main.WorldToScreenPoint(new Vector3(4f, 0, 0));
+    }
     
     void Update()
     {
@@ -16,7 +29,17 @@ public class TitleUI : MonoBehaviour
         {
             howToPlayWin.SetActive(false);
         }
+        if (creditWin.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        {
+            creditWin.SetActive(false);
+        }
+        if(canMove)
+        {
+            left.position = Vector3.MoveTowards(left.position, new Vector3(minus.x, left.position.y, 0), 300f * Time.deltaTime);
+            right.position = Vector3.MoveTowards(right.position, new Vector3(plus.x, right.position.y, 0), 300f * Time.deltaTime);
+        }
     }
+
     public void ChangeBtnImg(Image btn)
     {
         if (btn.sprite == startBtn)
@@ -40,6 +63,12 @@ public class TitleUI : MonoBehaviour
     public void ClickedExit()
     {
         Application.Quit();
+    }
+
+    public void ClickedTitle()
+    {
+        creditWin.SetActive(true);
+        canMove = true;
     }
 
     public void LoadGame()
