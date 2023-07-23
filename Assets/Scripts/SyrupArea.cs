@@ -5,7 +5,7 @@ using UnityEngine;
 public class SyrupArea : MonoBehaviour
 {
     private float timePassed = 0f;
-    private const float SyrupDuration = 10f;
+    private const float SyrupDuration = 5f;
     private PooledObject pooledObj;
     private void Start()
     {
