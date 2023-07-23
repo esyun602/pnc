@@ -15,7 +15,7 @@ public class Timer : MonoBehaviour
 
     private void Start()
     {
-        currentMapleTime = 45f;
+        currentMapleTime = 50f;
         currentPhaseShiftTime = 40f;
         textBox.text = "60.00";
     }
