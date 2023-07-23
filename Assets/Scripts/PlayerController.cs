@@ -79,6 +79,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.IsInGame)
+        {
+            return;
+        }
+        
         if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.W))
             && jumpCount > 0)
         {
@@ -245,7 +250,7 @@ public class PlayerController : MonoBehaviour
         }
         
         //rig.velocity += tempDir.normalized * (rig.velocity * movePower * 80f) * Time.deltaTime;
-        rig.velocity = tempDir.normalized * (moveVelocity * movePower * 80f) * Time.deltaTime;
+        rig.velocity = tempDir.normalized * (moveVelocity * movePower * 300f) * Time.deltaTime;
 
         if (dashTime >= 0.15f)
         {
