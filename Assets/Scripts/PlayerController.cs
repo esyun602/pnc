@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private float originMovePower;
     private float originJumpPower;
 
-    private const float slowMovePower = 2f;
+    private const float slowMovePower = 3f;
 
     private Vector3 moveVelocity;
     private Rigidbody2D rig;

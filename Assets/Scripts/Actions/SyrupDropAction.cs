@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SyrupDropAction : IAction
 {
-    private const float runningTime = 1.5f + 0.25f;
-    private const float handRestoreTime = 1.25f + 0.25f;
+    private const float runningTime = 1.5f + 0.25f - 0.25f;
+    private const float handRestoreTime = 1.25f + 0.25f - 0.25f;
     private const float castingTime = 0.25f + 0.25f;
     private float timePassed = 0;
     private bool isActive = false;
