@@ -59,6 +59,8 @@ public class Chef : MonoBehaviour
     [SerializeField]
     private GameObject dummySyrupPrefab;
 
+    private Transform [] forkHands;
+
     [SerializeField]
     private SkillIconHandler iconHandler;
     public SkillIconHandler IconHandler => iconHandler;
@@ -227,6 +229,13 @@ public class Chef : MonoBehaviour
             headPhase3.position = currentHead.position;
             currentHead = headPhase3;
             currentHead.gameObject.SetActive(true);
+            
+            forkHands = new Transform[4];
+            for (int i = 0; i < 4; i++)
+            {
+                forkHands[i] = dummyForkPrefab.transform.GetChild(i);
+                forkHands[i].gameObject.SetActive(true);
+            }
         }
     }
 
