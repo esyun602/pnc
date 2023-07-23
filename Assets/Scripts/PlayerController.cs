@@ -298,6 +298,8 @@ public class PlayerController : MonoBehaviour
         jumpPower = originJumpPower;
     }
 
+    [SerializeField] private SpriteRenderer[] fork;
+    [SerializeField] private Sprite[] forkSprite;
     public void Damage()
     {
         if(Time.time - lastDamagedTime < invincibleTime)
@@ -317,10 +319,14 @@ public class PlayerController : MonoBehaviour
         switch (--life)
         {
             case 2:
+                fork[0].sprite = forkSprite[0];
+                fork[1].sprite = forkSprite[0];
                 collider.size = new Vector2(collider.size.x, 3.5f);
                 collider.offset = new Vector2(collider.offset.x, -0.75f);
                 break;
             case 1:
+                fork[0].sprite = forkSprite[1];
+                fork[1].sprite = forkSprite[1];
                 collider.size = new Vector2(collider.size.x, 2.5f);
                 collider.offset = new Vector2(collider.offset.x, -1.25f);
                 break;
