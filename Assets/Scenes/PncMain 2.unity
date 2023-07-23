@@ -1570,6 +1570,10 @@ PrefabInstance:
       propertyPath: dummyRedPrefab
       value: 
       objectReference: {fileID: 904751074}
+    - target: {fileID: 7760582783650870268, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 2145408049042327115, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
