@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if((int)timePassed / 20 > 0 && (int)timePassed % 20 == 0)
+        if((int)timePassed >= 20 && (int)timePassed % 20 == 0)
         {
             SoundManager.Instance.ChefSound();
         }
