@@ -245,7 +245,7 @@ public class PlayerController : MonoBehaviour
         }
         
         //rig.velocity += tempDir.normalized * (rig.velocity * movePower * 80f) * Time.deltaTime;
-        rig.velocity = tempDir.normalized * (moveVelocity * movePower * 80f) * Time.deltaTime;
+        rig.velocity = tempDir.normalized * (moveVelocity * movePower * 300f) * Time.deltaTime;
 
         if (dashTime >= 0.15f)
         {
