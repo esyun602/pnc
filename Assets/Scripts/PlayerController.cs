@@ -79,6 +79,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.IsInGame)
+        {
+            return;
+        }
+        
         if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.W))
             && jumpCount > 0)
         {
