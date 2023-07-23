@@ -85,7 +85,7 @@ public class SoundManager : MonoBehaviour
         if (stop)
         { IngameBGM.Play(); }
         else
-        { IngameBGM.Pause(); }
+        { IngameBGM.Stop(); }
     }
 
     void Awake()
