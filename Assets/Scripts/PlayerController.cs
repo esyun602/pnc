@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Rigidbody2D syrupCake;
 
+    private int forkCount = 0;
+
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +85,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ProcessDamageScreen();
         if (!GameManager.Instance.IsInGame)
         {
             return;
@@ -98,7 +101,6 @@ public class PlayerController : MonoBehaviour
             IsMapled = false;
             canDash = true;
         }
-        ProcessDamageScreen();
         ProcessPanCakeDamageSprite();
 
         if (Time.time - lastSlowDownTime < 1f)
@@ -302,6 +304,8 @@ public class PlayerController : MonoBehaviour
         jumpPower = originJumpPower;
     }
 
+    [SerializeField] private SpriteRenderer[] fork;
+    [SerializeField] private Sprite[] forkSprite;
     public void Damage(bool isSyrup)
     {
         if(Time.time - lastDamagedTime < invincibleTime)
@@ -312,7 +316,6 @@ public class PlayerController : MonoBehaviour
         // sound
         SoundManager.Instance.PancakeDamaged();
         Chef.Instance.SetLaugh();
-        Invoke("AttackSucceed", 0.1f);
 
         lastDamagedTime = Time.time;
         blinkTimePassed = damageBlinkTerm;
@@ -328,10 +331,22 @@ public class PlayerController : MonoBehaviour
         switch (--life)
         {
             case 2:
+                if (!isSyrup)
+                {
+                    fork[0].sprite = forkSprite[forkCount];
+                    fork[1].sprite = forkSprite[forkCount];
+                    forkCount++;
+                }
                 collider.size = new Vector2(collider.size.x, 3.5f);
                 collider.offset = new Vector2(collider.offset.x, -0.75f);
                 break;
             case 1:
+                if (!isSyrup)
+                {
+                    fork[0].sprite = forkSprite[forkCount];
+                    fork[1].sprite = forkSprite[forkCount];
+                    forkCount++;
+                }
                 collider.size = new Vector2(collider.size.x, 2.5f);
                 collider.offset = new Vector2(collider.offset.x, -1.25f);
                 break;

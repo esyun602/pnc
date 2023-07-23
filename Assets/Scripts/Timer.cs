@@ -9,7 +9,7 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private GameObject maplePrefab;
 
-    private float currentMapleTime = 45f;
+    private float currentMapleTime = 50f;
     private float currentPhaseShiftTime = 40f;
     private const float genHalfWidth = 0.3f;
 
@@ -34,7 +34,7 @@ public class Timer : MonoBehaviour
                 var maple = Instantiate(maplePrefab);
                 maple.transform.position = genPos;
 
-                currentMapleTime -= 15f;
+                currentMapleTime -= 10f;
                 if (currentMapleTime == 0)
                 {
                     currentMapleTime = -10000;

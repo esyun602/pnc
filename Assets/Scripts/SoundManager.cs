@@ -40,6 +40,7 @@ public class SoundManager : MonoBehaviour
         {
             damaged2.Play();
         }
+        Invoke("AttackSucceed", 0.1f);
     }
 
     public void AttackSucceed()

@@ -924,6 +924,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1254489087236946034, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_SortingOrder
+      value: -60
+      objectReference: {fileID: 0}
     - target: {fileID: 1547450774920058995, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -984,6 +988,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5667527235506184742, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+      propertyPath: m_SortingOrder
+      value: -60
+      objectReference: {fileID: 0}
     - target: {fileID: 7271214864689741111, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
       propertyPath: iconHandler
       value: 
@@ -998,6 +1006,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+--- !u!212 &933647600 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5667527235506184742, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+  m_PrefabInstance: {fileID: 933647599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &933647601 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1254489087236946034, guid: ba3397ce15c195a4580e68a9683bb205, type: 3}
+  m_PrefabInstance: {fileID: 933647599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1346938691
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,6 +1389,12 @@ MonoBehaviour:
   dashSprite: {fileID: 921667790}
   damageScreenSprite: {fileID: 1779666387}
   syrupCake: {fileID: 1413512049169590812, guid: 55723570766da164ead144847b93429c, type: 3}
+  fork:
+  - {fileID: 933647601}
+  - {fileID: 933647600}
+  forkSprite:
+  - {fileID: 21300000, guid: eecba3022bac488409e38b207afa40bd, type: 3}
+  - {fileID: 21300000, guid: d2f2c86a5d5984d469c44b6bd5e188b0, type: 3}
 --- !u!50 &1546880255
 Rigidbody2D:
   serializedVersion: 4
