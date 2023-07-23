@@ -41,6 +41,8 @@ public class ForkAction : IAction
         redTarget.transform.position = targetPos;
         // 공격 고정 위치 값
         targetPos = targetPos + new Vector3(offset, 2.3f, 0f);
+
+        SoundManager.Instance.ForkSound();
         
         timePassed = 0;
         isActive = true;
@@ -87,7 +89,6 @@ public class ForkAction : IAction
         // 클릭 0.5초 후: 포크를 빠르게 내려 찍음
         else if(timePassed >= 0.5f && timePassed < 1f)
         {
-            SoundManager.Instance.ForkSound();
             fork.transform.position =Vector3.Lerp(fork.transform.position, targetPos + new Vector3(0, -4f, 0), 
                                                     (timePassed - 0.5f) / 0.5f);
             redTarget.SetActive(false);

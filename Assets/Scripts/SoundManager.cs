@@ -60,6 +60,10 @@ public class SoundManager : MonoBehaviour
 
     public void ForkSound()
     {
+        Invoke("SlamSound", 0.5f);
+    }
+    private void SlamSound()
+    {
         slam.Play();
     }
 
