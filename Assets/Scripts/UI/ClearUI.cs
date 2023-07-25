@@ -10,12 +10,13 @@ public class ClearUI : MonoBehaviour
     [SerializeField] private GameObject chefWin, pancakeWin;
     [SerializeField] private RectTransform chefResult, pancakeResult, chefWinner, pancakeWinner;
     [SerializeField] private Text timeChef, timePancake;
-    Vector3 minus, plus;
 
     private float timePassed;
     private bool escaping;
     void Start()
     {
+        SetResolution();
+
         SoundManager.Instance.PlayIngameBGM(false);
         SoundManager.Instance.PlayBGM(true);
 
@@ -39,8 +40,6 @@ public class ClearUI : MonoBehaviour
             pancakeWin.SetActive(true);
         }
 
-        minus = Camera.main.WorldToScreenPoint(new Vector3(-5f, 0, 0));
-        plus = Camera.main.WorldToScreenPoint(new Vector3(5f, 0, 0));
     }
     void Update()
     {
@@ -51,14 +50,14 @@ public class ClearUI : MonoBehaviour
 
         if (winner == 0)
         {
-            chefResult.position = Vector3.MoveTowards(chefResult.position, new Vector3(minus.x, chefResult.position.y, 0), 300f * Time.deltaTime);
-            chefWinner.position = Vector3.MoveTowards(chefWinner.position, new Vector3(plus.x, chefWinner.position.y, 0), 300f * Time.deltaTime);
+            chefResult.anchoredPosition = Vector3.MoveTowards(chefResult.anchoredPosition, new Vector3(520f, chefResult.anchoredPosition.y, 0), 300f * Time.deltaTime);
+            chefWinner.anchoredPosition = Vector3.MoveTowards(chefWinner.anchoredPosition, new Vector3(-520f, chefWinner.anchoredPosition.y, 0), 300f * Time.deltaTime);
 
         }
         else
         {
-            pancakeResult.position = Vector3.MoveTowards(pancakeResult.position, new Vector3(minus.x, pancakeResult.position.y, 0), 300f * Time.deltaTime);
-            pancakeWinner.position = Vector3.MoveTowards(pancakeWinner.position, new Vector3(plus.x, pancakeWinner.position.y, 0), 300f * Time.deltaTime);
+            pancakeResult.anchoredPosition = Vector3.MoveTowards(pancakeResult.anchoredPosition, new Vector3(520f, pancakeResult.anchoredPosition.y, 0), 300f * Time.deltaTime);
+            pancakeWinner.anchoredPosition = Vector3.MoveTowards(pancakeWinner.anchoredPosition, new Vector3(-520f, pancakeWinner.anchoredPosition.y, 0), 300f * Time.deltaTime);
         }
 
         timePassed += Time.deltaTime;
@@ -71,5 +70,31 @@ public class ClearUI : MonoBehaviour
     public void ClickedReplay()
     {
         SceneManager.LoadScene("PncMain");
+    }
+
+    // 해상도 설정
+    // 참고 링크: https://giseung.tistory.com/19
+    public void SetResolution()
+    {
+        // 원하는 해상도
+        int setWidth = 1920;
+        int setHeight = 1080;
+
+        // 기기 해상도
+        int deviceWidth = Screen.width;
+        int deviceHeight = Screen.height;
+
+        Screen.SetResolution(setWidth, (int)(((float)deviceHeight / deviceWidth) * setWidth), true);
+
+        if ((float)setWidth / setHeight < (float)deviceWidth / deviceHeight) // 기기의 해상도 비가 더 큰 경우
+        {
+            float newWidth = ((float)setWidth / setHeight) / ((float)deviceWidth / deviceHeight); // 새로운 너비
+            Camera.main.rect = new Rect((1f - newWidth) / 2f, 0f, newWidth, 1f); // 새로운 Rect 적용
+        }
+        else // 게임의 해상도 비가 더 큰 경우
+        {
+            float newHeight = ((float)deviceWidth / deviceHeight) / ((float)setWidth / setHeight); // 새로운 높이
+            Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); // 새로운 Rect 적용
+        }
     }
 }
