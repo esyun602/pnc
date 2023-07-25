@@ -60,6 +60,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Rigidbody2D syrupCake;
 
+    // change to fork with pancake sprite
+    [SerializeField] private SpriteRenderer[] fork;
+    [SerializeField] private Sprite[] forkSprite;
+    [SerializeField] private Sprite[] LRforkSprite;
+
     private int forkCount = 0;
 
 
@@ -168,7 +173,7 @@ public class PlayerController : MonoBehaviour
         }
         Move();
 		Jump();
-        PlayerDash();
+        Dash();
 	}
 
 	private void Move()
@@ -227,7 +232,7 @@ public class PlayerController : MonoBehaviour
         canJump = false;
 	}
 
-    private void PlayerDash()
+    private void Dash()
     {
         if (!canDash)
             return;
@@ -304,8 +309,6 @@ public class PlayerController : MonoBehaviour
         jumpPower = originJumpPower;
     }
 
-    [SerializeField] private SpriteRenderer[] fork;
-    [SerializeField] private Sprite[] forkSprite;
     public void Damage(bool isSyrup)
     {
         if(Time.time - lastDamagedTime < invincibleTime)
@@ -333,8 +336,12 @@ public class PlayerController : MonoBehaviour
             case 2:
                 if (!isSyrup)
                 {
+                    
                     fork[0].sprite = forkSprite[forkCount];
                     fork[1].sprite = forkSprite[forkCount];
+                    fork[2].sprite = LRforkSprite[forkCount];
+                    
+
                     forkCount++;
                 }
                 collider.size = new Vector2(collider.size.x, 3.5f);
@@ -343,8 +350,11 @@ public class PlayerController : MonoBehaviour
             case 1:
                 if (!isSyrup)
                 {
+                    
                     fork[0].sprite = forkSprite[forkCount];
                     fork[1].sprite = forkSprite[forkCount];
+                    fork[2].sprite = LRforkSprite[forkCount];
+
                     forkCount++;
                 }
                 collider.size = new Vector2(collider.size.x, 2.5f);
