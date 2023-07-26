@@ -27,7 +27,6 @@ public class SyrupLaserAction : IAction
 
     void IAction.Trigger(System.Action endCallback)
     {
-        SoundManager.Instance.SyrupSound();
         timePassed = 0;
         isActive = true;
         if(Cursor.Instance.ViewPortPos.x < 0.5)

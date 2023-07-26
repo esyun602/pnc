@@ -339,7 +339,6 @@ public class PlayerController : MonoBehaviour
                     
                     fork[0].sprite = forkSprite[forkCount];
                     fork[1].sprite = forkSprite[forkCount];
-                    fork[2].sprite = LRforkSprite[forkCount];
                     
 
                     forkCount++;
@@ -353,7 +352,6 @@ public class PlayerController : MonoBehaviour
                     
                     fork[0].sprite = forkSprite[forkCount];
                     fork[1].sprite = forkSprite[forkCount];
-                    fork[2].sprite = LRforkSprite[forkCount];
 
                     forkCount++;
                 }

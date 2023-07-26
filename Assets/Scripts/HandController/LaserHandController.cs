@@ -52,6 +52,7 @@ public class LaserHandController : MonoBehaviour, IHandController
     void IHandController.StartAction()
     {
         laserObject.SetActive(true);
+        SoundManager.Instance.SyrupSound();
     }
 
     void IHandController.EndAction()
