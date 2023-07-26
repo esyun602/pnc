@@ -59,7 +59,8 @@ public class Chef : MonoBehaviour
     [SerializeField]
     private GameObject dummySyrupPrefab;
 
-    private Transform [] forkHands;
+    [SerializeField] private GameObject [] forkHands;
+    [SerializeField] private GameObject LRforkHand;
 
     [SerializeField]
     private SkillIconHandler iconHandler;
@@ -230,12 +231,10 @@ public class Chef : MonoBehaviour
             currentHead = headPhase3;
             currentHead.gameObject.SetActive(true);
             
-            forkHands = new Transform[4];
-            for (int i = 0; i < 4; i++)
-            {
-                forkHands[i] = dummyForkPrefab.transform.GetChild(i);
-                forkHands[i].gameObject.SetActive(true);
-            }
+            // 왼.오 포크 손만 끄고, 양손 포크 손 켜기
+            forkHands[0].SetActive(false);
+            forkHands[1].SetActive(false);
+            LRforkHand.SetActive(true);
         }
     }
 

@@ -12,11 +12,10 @@ public class ForkAction : IAction
     private bool isActive;
     private GameObject fork, redTarget;
     private DummyFork[] forks;
-    private BoxCollider2D[] forkCol = new BoxCollider2D[2];
+    private BoxCollider2D[] forkCol = new BoxCollider2D[3];
 
     private Vector3 targetPos;
 
-    private float offset;
 
     public ForkAction(GameObject _fork, GameObject _red)
     {
@@ -25,9 +24,12 @@ public class ForkAction : IAction
         forks = fork.GetComponentsInChildren<DummyFork>();
         forkCol[0] = forks[0].gameObject.GetComponent<BoxCollider2D>();
         forkCol[1] = forks[1].gameObject.GetComponent<BoxCollider2D>();
+        forkCol[2] = forks[2].gameObject.GetComponent<BoxCollider2D>();
         forkCol[0].enabled = false;
         forkCol[1].enabled = false;
+        forkCol[2].enabled = false;
         forks[1].gameObject.SetActive(false);
+        forks[2].gameObject.SetActive(false);
     }
 
     void IAction.Trigger(Action endCallback)
@@ -35,12 +37,12 @@ public class ForkAction : IAction
         this.endCallback = endCallback;
 
         // 빨간색 잠깐 표시
-        targetPos = new Vector3(Cursor.Instance.WorldPos.x + offset, fork.transform.position.y, 0f)
-                     + new Vector3(-offset, -2.3f, 0f);
+        targetPos = new Vector3(Cursor.Instance.WorldPos.x , fork.transform.position.y, 0f)
+                     + new Vector3(0f, -2.3f, 0f);
         redTarget.SetActive(true);
         redTarget.transform.position = targetPos;
         // 공격 고정 위치 값
-        targetPos = targetPos + new Vector3(offset, 2.3f, 0f);
+        targetPos = targetPos + new Vector3(0f, 2.3f, 0f);
 
         SoundManager.Instance.ForkSound();
         
@@ -50,14 +52,7 @@ public class ForkAction : IAction
     // 스킬 실행 중
     void IAction.UpdateFrame(float dt)
     {
-        if(Cursor.Instance.ViewPortPos.x > 0.5f)
-        {
-            offset = 0;
-        }
-        else
-        {
-            offset = 0;
-        }
+        
 
         Chef.Instance.HandManager.SetHandState(ChefHandState.Fork);
         // 첫 포크 생성
@@ -94,6 +89,7 @@ public class ForkAction : IAction
             redTarget.SetActive(false);
             forkCol[0].enabled = true;
             forkCol[1].enabled = true;
+            forkCol[2].enabled = true;
         }
 
         // 다시 올라간 후 0.5초 안에 장착 상태로 돌아감
@@ -101,10 +97,11 @@ public class ForkAction : IAction
         {
             // 팔 움직임
             Chef.Instance.HandManager.UpdateHandPosition();
-            fork.transform.position = Vector3.Lerp(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x + offset, targetPos.y, 0f), 
+            fork.transform.position = Vector3.Lerp(fork.transform.position, new Vector3(Cursor.Instance.WorldPos.x , targetPos.y, 0f), 
                                                     (timePassed - 1f) / 0.5f);
             forkCol[0].enabled = false;
             forkCol[1].enabled = false;
+            forkCol[2].enabled = false;
         }
 
         timePassed += dt;
@@ -125,6 +122,7 @@ public class ForkAction : IAction
                 fork.transform.position = new Vector3(fork.transform.position.x, targetPos.y, 0);
                 forkCol[0].enabled = false;
                 forkCol[1].enabled = false;
+                forkCol[2].enabled = false;
                 Chef.Instance.HandManager.EndHandAction();
                 endCallback?.Invoke();
                 isActive = false;

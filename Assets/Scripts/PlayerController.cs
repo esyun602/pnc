@@ -254,14 +254,11 @@ public class PlayerController : MonoBehaviour
 
         // 미끄럼 방지
         rig.velocity = Vector2.zero;
-        
-        if (tempDir == Vector2.zero)
-        {
-            tempDir = Vector2.right;
-        }
+        // 속도 넣어주기
+        tempDir = Vector2.right;
         
         //rig.velocity += tempDir.normalized * (rig.velocity * movePower * 80f) * Time.deltaTime;
-        rig.velocity = tempDir.normalized * (moveVelocity * movePower * 300f) * Time.deltaTime;
+        rig.velocity = tempDir.normalized * (moveVelocity * movePower * 300f) * Time.fixedDeltaTime;
 
         if (dashTime >= 0.15f)
         {
@@ -339,6 +336,7 @@ public class PlayerController : MonoBehaviour
                     
                     fork[0].sprite = forkSprite[forkCount];
                     fork[1].sprite = forkSprite[forkCount];
+                    fork[2].sprite = LRforkSprite[forkCount];
                     
 
                     forkCount++;
@@ -352,6 +350,7 @@ public class PlayerController : MonoBehaviour
                     
                     fork[0].sprite = forkSprite[forkCount];
                     fork[1].sprite = forkSprite[forkCount];
+                    fork[2].sprite = LRforkSprite[forkCount];
 
                     forkCount++;
                 }

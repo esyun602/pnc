@@ -15,6 +15,8 @@ public class ForkHandController : MonoBehaviour, IHandController
     private Transform leftArm, leftFork;
     [SerializeField]
     private Transform rightArm, rightFork;
+    [SerializeField]
+    private GameObject LRforkHand;
 
 
 
@@ -33,32 +35,32 @@ public class ForkHandController : MonoBehaviour, IHandController
     private void UpdateArm()
     {
         var viewPortX = Camera.main.WorldToViewportPoint(Cursor.Instance.WorldPos).x;
+
+        // Phase 3: 양손일 때는 유지
+        if (LRforkHand.activeSelf)
+        {
+            rightArm.gameObject.SetActive(true);
+            leftArm.gameObject.SetActive(true);
+            return;
+        }
+
         // 오른쪽
         if (viewPortX > 0.5f)
         {
-            // Phase 3: 양손일 떄는 유지
-            if (rightArm.gameObject.activeSelf)
-            {
-                rightArm.gameObject.SetActive(true); rightFork.gameObject.SetActive(true);
-                return;
-            }
             rightArm.gameObject.SetActive(true);    rightFork.gameObject.SetActive(true);
             
             leftArm.gameObject.SetActive(false);    leftFork.gameObject.SetActive(false);
         }
+
         // 왼쪽
         else
         {
-            // Phase 3: 양손일 떄는 유지
-            if (leftArm.gameObject.activeSelf)
-            {
-                leftArm.gameObject.SetActive(true); leftFork.gameObject.SetActive(true);
-                return;
-            }
             leftArm.gameObject.SetActive(true);     leftFork.gameObject.SetActive(true);
             
             rightArm.gameObject.SetActive(false);   rightFork.gameObject.SetActive(false);
         }
+        
+        
     }
 
     void IHandController.SetActive(bool activeState)
