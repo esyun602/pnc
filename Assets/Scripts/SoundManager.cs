@@ -6,92 +6,31 @@ public class SoundManager : MonoBehaviour
 {
     private static SoundManager instance = null;
 
+    [Header("Audio Sources")]
     // damaged1, 2 : 피격 시 팬케이크가 내는 소리
-    [SerializeField] private AudioSource damaged1;
-    [SerializeField] private AudioSource damaged2;
+    public AudioSource[] damaged;
     // laugh: 공격 성공 후 요리사가 내는 소리
-    [SerializeField] private AudioSource laugh;
+    public AudioSource laugh;
     // angry: 20초 지날 때마다 요리사가 내는 소리
-    [SerializeField] private AudioSource angry;
+    public AudioSource angry;
     // jump: 점프할 때 나는 소리
-    [SerializeField] private AudioSource jump;
+    public AudioSource jump;
     // slam: 포크 찍을 때 나는 소리
-    [SerializeField] private AudioSource slam;
+    public AudioSource slam;
     // pewpew2: 시럽 빔 쏘는 소리
-    [SerializeField] private AudioSource pewpew2;
+    public AudioSource pewpew2;
     // pewpew9: 공격(종류무관) 받을 때 나는 소리
-    [SerializeField] private AudioSource pewpew9;
+    public AudioSource pewpew9;
+    // pewpew12: 대쉬할 때 나는 소리
+    public AudioSource pewpew12;
     // pewpew17: 단풍잎 획득할 때 소리
-    [SerializeField] private AudioSource pewpew17;
+    public AudioSource pewpew17;
     // BGM
-    [SerializeField] private AudioSource BGM;
+    public AudioSource BGM;
     // INGAME BGM
-    [SerializeField] private AudioSource IngameBGM;
+    public AudioSource IngameBGM;
 
-    public void PancakeDamaged()
-    {
-        pewpew9.Play();
-        int rand = Random.Range(0, 2);
-        if(rand == 0)
-        {
-            damaged1.Play();
-        }
-        else
-        {
-            damaged2.Play();
-        }
-        Invoke("AttackSucceed", 0.1f);
-    }
-
-    public void AttackSucceed()
-    {
-        laugh.Play();
-    }
-
-    public void ChefSound()
-    {
-        angry.Play();
-    }
-
-    public void JumpSound()
-    {
-        jump.Play();
-    }
-
-    public void ForkSound()
-    {
-        Invoke("SlamSound", 0.5f);
-    }
-    private void SlamSound()
-    {
-        slam.Play();
-    }
-
-    public void SyrupSound()
-    {
-        pewpew2.Play();
-    }
-
-    public void EarnMaple()
-    {
-        pewpew17.Play();
-    }
-    
-    public void PlayBGM(bool stop)
-    {
-        if(stop)
-        {BGM.Play();}
-        else
-        {BGM.Pause();}
-    }
-
-    public void PlayIngameBGM(bool stop)
-    {
-        if (stop)
-        { IngameBGM.Play(); }
-        else
-        { IngameBGM.Stop(); }
-    }
+    private AudioSource delay_effect;
 
     void Awake()
     {
@@ -118,17 +57,45 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-
-
-    // Start is called before the first frame update
-    void Start()
+    
+    public void PlayBGM(bool stop)
     {
-        
+        if(stop)
+        {BGM.Play();}
+        else
+        {BGM.Pause();}
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayIngameBGM(bool stop)
     {
-        
+        if (stop)
+        { IngameBGM.Play(); }
+        else
+        { IngameBGM.Stop(); }
+    }
+
+
+    public void Play_EffectSound(AudioSource effectSource, float time)
+    {
+        if(time == 0f)
+        {
+            effectSource.Play();
+        }
+        else
+        {
+            delay_effect = effectSource;
+            Invoke("Play_DelayedEffect", time);
+        }
+    }
+
+    public void Play_EffectSound_Random(AudioSource[] effect, int random)
+    {
+        int rand = Random.Range(0, random);
+        effect[rand].Play();
+    }
+
+    private void Play_DelayedEffect()
+    {
+        delay_effect.Play();
     }
 }

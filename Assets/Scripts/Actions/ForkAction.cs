@@ -44,7 +44,7 @@ public class ForkAction : IAction
         // 공격 고정 위치 값
         targetPos = targetPos + new Vector3(0f, 2.3f, 0f);
 
-        SoundManager.Instance.ForkSound();
+        SoundManager.Instance.Play_EffectSound(SoundManager.Instance.slam, 0.5f);
         
         timePassed = 0;
         isActive = true;

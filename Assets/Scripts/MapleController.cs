@@ -38,7 +38,7 @@ public class MapleController : MonoBehaviour
         var controller = collision.GetComponent<PlayerController>();
         if(controller != null)
         {
-            SoundManager.Instance.EarnMaple();
+            SoundManager.Instance.Play_EffectSound(SoundManager.Instance.pewpew17, 0f);
             controller.IsMapled = true;
             gameObject.SetActive(false);
         }

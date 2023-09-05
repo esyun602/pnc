@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
 		if (!canJump || jumpCount <= 0)
 			return;
 
-        SoundManager.Instance.JumpSound();
+        SoundManager.Instance.Play_EffectSound(SoundManager.Instance.jump, 0f);
 
         // 점프 횟수 제한
         jumpCount--;
@@ -262,6 +262,7 @@ public class PlayerController : MonoBehaviour
 
         if (dashTime >= 0.15f)
         {
+            SoundManager.Instance.Play_EffectSound(SoundManager.Instance.pewpew12, 0f);
             dashTime = 0;
             canDash = false;
             dashSprite.gameObject.SetActive(false);
@@ -313,8 +314,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // sound
-        SoundManager.Instance.PancakeDamaged();
+        // damage sound
+        SoundManager.Instance.Play_EffectSound_Random(SoundManager.Instance.damaged, 2);        
+        SoundManager.Instance.Play_EffectSound(SoundManager.Instance.laugh, 0f);
         Chef.Instance.SetLaugh();
 
         lastDamagedTime = Time.time;
