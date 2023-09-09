@@ -10,6 +10,8 @@ public class MapleController : MonoBehaviour
     private float currentMapleVelocity;
     private float mapleTimePassed = 0;
 
+    private UIManager ui;
+
     private void OnEnable()
     {
         mapleTimePassed = 0;
@@ -40,6 +42,8 @@ public class MapleController : MonoBehaviour
         {
             SoundManager.Instance.Play_EffectSound(SoundManager.Instance.pewpew17, 0f);
             controller.IsMapled = true;
+            // 단풍 아이콘 번쩍, 켜기
+            controller.UpdateMaple(true);
             gameObject.SetActive(false);
         }
         else if(collision.tag == "Ground")

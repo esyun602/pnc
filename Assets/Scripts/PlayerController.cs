@@ -67,6 +67,13 @@ public class PlayerController : MonoBehaviour
 
     private int forkCount = 0;
 
+    [SerializeField] private GameObject mapleEnabled, mapleDisabled;
+    public void UpdateMaple(bool able)
+    {
+        mapleEnabled.SetActive(able);
+        mapleDisabled.SetActive(!able);
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -265,6 +272,7 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance.Play_EffectSound(SoundManager.Instance.pewpew12, 0f);
             dashTime = 0;
             canDash = false;
+            UpdateMaple(false);
             dashSprite.gameObject.SetActive(false);
             // 미끄럼 방지
             rig.velocity = Vector2.zero;

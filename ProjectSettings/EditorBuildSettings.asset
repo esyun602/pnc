@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 46303dff54e0d0b49a27c4b180abe5ed
   - enabled: 1
-    path: Assets/Scenes/PncMain 2.unity
+    path: Assets/Scenes/PncMain.unity
     guid: 27feb3b4336d7e84eafec3e3fce01abf
   - enabled: 1
     path: Assets/Scenes/PncMain.unity
