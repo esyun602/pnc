@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class TitleUI : MonoBehaviour
 {
@@ -14,13 +15,20 @@ public class TitleUI : MonoBehaviour
     [SerializeField] private RectTransform left, right;
     bool canMove = false;
 
+    [SerializeField] private GameObject optionWin;
+    [SerializeField] private AudioMixer mixer;
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider effectSlider;
+
     void Start()
     {
         SetResolution();
         SoundManager.Instance.PlayIngameBGM(false);
         SoundManager.Instance.PlayBGM(true);
+        bgmSlider.value = PlayerPrefs.GetFloat("BgmVolume", 1f);
+        effectSlider.value = PlayerPrefs.GetFloat("EffectVolume", 1f);
     }
-    
+
     void Update()
     {
         if(howToPlayWin.activeSelf && Input.GetKeyDown(KeyCode.Escape))
@@ -30,6 +38,10 @@ public class TitleUI : MonoBehaviour
         if (creditWin.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             creditWin.SetActive(false);
+        }
+        if (optionWin.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        {
+            optionWin.SetActive(false);
         }
         if(canMove)
         {
@@ -72,6 +84,20 @@ public class TitleUI : MonoBehaviour
     public void LoadGame()
     {
         SceneManager.LoadScene("PncMain");
+    }
+
+    // 배경음악 볼륨 조절
+    public void SetBGMLevel(float sliderValue)
+    {
+       mixer.SetFloat("BgmVolume", Mathf.Log10(sliderValue)*20);
+       PlayerPrefs.SetFloat("BgmVolume", sliderValue);
+    }
+
+    // 효과음 볼륨 조절
+    public void SetEffectLevel(float sliderValue)
+    {
+       mixer.SetFloat("EffectVolume", Mathf.Log10(sliderValue)*20);
+       PlayerPrefs.SetFloat("EffectVolume", sliderValue);
     }
 
     // 해상도 설정
