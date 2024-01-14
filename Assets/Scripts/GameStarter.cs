@@ -7,10 +7,10 @@ public class GameStarter : MonoBehaviour
 {
     [SerializeField] private GameObject pause;
     private Text text;
-    private float timePassed = 0;
-    private float runTime = 3f;
-    // Start is called before the first frame update
-    void Start()
+    public float timePassed = 0;
+    public float runTime = 3f;
+
+    public void InitialSetting()
     {
         SoundManager.Instance.PlayBGM(false);
         SoundManager.Instance.PlayIngameBGM(true);
@@ -19,6 +19,12 @@ public class GameStarter : MonoBehaviour
         timePassed = 0f;
         runTime = 3f;
         text.text = string.Format("{0:F0}", runTime);
+    }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        InitialSetting();
     }
 
     // Update is called once per frame

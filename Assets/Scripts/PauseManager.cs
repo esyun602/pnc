@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject optionPanel;
+    [SerializeField] private GameStarter gameStarter;
     public void Resume()
     {
         GameManager.Instance.Pause();
@@ -18,8 +19,10 @@ public class PauseManager : MonoBehaviour
 
     public void BackToMain()
     {
-        SceneManager.LoadScene("PncMain");
+        gameStarter.gameObject.SetActive(true);
+        gameStarter.InitialSetting();
+        GameManager.Instance.Pause();
+        GameManager.Instance.ResetTime();
         SceneManager.LoadScene("Title");
-        // 시간 재시작, 값 초기화 필요
     }
 }

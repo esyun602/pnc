@@ -3016,7 +3016,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f88a85d4f942d45428fc215c99c87e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionPanel: {fileID: 0}
+  optionPanel: {fileID: 376081597}
+  gameStarter: {fileID: 376081601}
 --- !u!4 &2094366876
 Transform:
   m_ObjectHideFlags: 0

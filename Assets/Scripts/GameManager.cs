@@ -112,4 +112,10 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1.0f;
         }
     }
+
+    public void ResetTime()
+    {
+        isInGame = false;
+        timePassed = 0f;
+    }
 }
