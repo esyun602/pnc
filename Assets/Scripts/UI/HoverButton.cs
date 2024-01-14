@@ -13,7 +13,10 @@ public class HoverButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private GameObject originalSprite;
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        arrow.transform.position = transform.position;
+        if(arrow)
+        {
+            arrow.transform.position = transform.position;
+        }
         enabledSprite.SetActive(true);
         originalSprite.SetActive(false);
     }
