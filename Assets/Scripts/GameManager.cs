@@ -101,7 +101,9 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
+        SoundManager.Instance.PlayIngameBGM(isPaused);
         isPaused = !isPaused;
+        SoundManager.Instance.PlayBGM(isPaused);
         pausePanel.SetActive(!pausePanel.activeSelf);
         if (isPaused)
         {
