@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameStarter : MonoBehaviour
 {
+    [SerializeField] private GameObject pause;
     private Text text;
     private float timePassed = 0;
     private float runTime = 3f;
@@ -32,6 +33,7 @@ public class GameStarter : MonoBehaviour
             {
                 gameObject.SetActive(false);
                 GameManager.Instance.GameStart();
+                GameManager.Instance.pausePanel = pause;
             }
             else
             {
