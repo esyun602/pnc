@@ -536,6 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10da0590898ea5f4db497cb6795378a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 0a075bdb6613fe943974e3c8ccfbf993, type: 2}
   damaged:
   - {fileID: 1744657977}
   - {fileID: 1363245964}
@@ -673,6 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803da9bd133cf4e4aacc4c5271402bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pausePanel: {fileID: 0}
 --- !u!4 &737554468
 Transform:
   m_ObjectHideFlags: 0

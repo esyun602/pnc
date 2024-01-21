@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
     private static SoundManager instance = null;
+    [SerializeField] private AudioMixer mixer;
 
     [Header("Audio Sources")]
     // damaged1, 2 : 피격 시 팬케이크가 내는 소리
@@ -57,21 +59,35 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    // control sound volume
+    public void ControlVolume(string category, float val)
+    {
+        mixer.SetFloat(category, Mathf.Log10(val) * 20);
+        PlayerPrefs.SetFloat(category, val);
+    }
     
     public void PlayBGM(bool stop)
     {
         if(stop)
-        {BGM.Play();}
+        {
+            BGM.Play();
+        }
         else
-        {BGM.Pause();}
+        {
+            BGM.Pause();
+        }
     }
 
     public void PlayIngameBGM(bool stop)
     {
         if (stop)
-        { IngameBGM.Play(); }
+        {
+            IngameBGM.Play();
+        }
         else
-        { IngameBGM.Stop(); }
+        {
+            IngameBGM.Stop();
+        }
     }
 
 

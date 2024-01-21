@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     private bool isInGame;
     private bool isInOverRoutine;
+    private bool isPaused = false;
     private const float overRoutineTime = 2f;
     private float timePassed;
     private float gameOverTime;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     public float LeftTime => TimeLimit - timePassed;
     public bool IsInGame => isInGame;
     public int winner {get; set;}
+    public GameObject pausePanel;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +58,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (isInGame)
+        if(isPaused)
+        {
+            IsPaused();
+            return;
+        }
+
+        if (isInGame && !isPaused)
         {
             timePassed += Time.deltaTime;
             if(LeftTime <= 0)
@@ -64,6 +72,7 @@ public class GameManager : MonoBehaviour
                 timePassed = TimeLimit;
                 GameOver(true);
             }
+            IsPaused();
         }
 
         if (isInOverRoutine)
@@ -80,5 +89,35 @@ public class GameManager : MonoBehaviour
         {
             SoundManager.Instance.Play_EffectSound(SoundManager.Instance.angry, 0f);
         }
+    }
+
+    private void IsPaused()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && pausePanel)
+        {
+            Pause();
+        }
+    }
+
+    public void Pause()
+    {
+        SoundManager.Instance.PlayIngameBGM(isPaused);
+        isPaused = !isPaused;
+        SoundManager.Instance.PlayBGM(isPaused);
+        pausePanel.SetActive(!pausePanel.activeSelf);
+        if (isPaused)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+        }
+    }
+
+    public void ResetTime()
+    {
+        isInGame = false;
+        timePassed = 0f;
     }
 }
