@@ -5,12 +5,26 @@ using Steamworks;
 // 참고 링크: https://steamworks.github.io/
 public class SteamScript : MonoBehaviour
 {
+    private ulong lobbyId = 0;
+    
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void ShowRemotePlayOverlay()
     {
         if (SteamManager.Initialized)
         {
-            Callback<LobbyCreated_t>.Create(OnLobbyCreated);
-            var lobby = SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePrivate, 2);
+            if(lobbyId == 0)
+            {
+                Callback<LobbyCreated_t>.Create(OnLobbyCreated);
+                var lobby = SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePrivate, 2);
+            }
+            else
+            {
+                SteamFriends.ActivateGameOverlayRemotePlayTogetherInviteDialog((CSteamID)lobbyId);
+            }
         }
     }
 
@@ -18,12 +32,16 @@ public class SteamScript : MonoBehaviour
     {
         if (lobbyCreated_t.m_eResult == EResult.k_EResultOK)
         {
+            lobbyId = lobbyCreated_t.m_ulSteamIDLobby;
             SteamFriends.ActivateGameOverlayRemotePlayTogetherInviteDialog((CSteamID)lobbyCreated_t.m_ulSteamIDLobby);
         }
     }
 
     private void Update()
     {
-        SteamAPI.RunCallbacks();
+        if (SteamManager.Initialized)
+        {
+            SteamAPI.RunCallbacks();
+        }
     }
 }
