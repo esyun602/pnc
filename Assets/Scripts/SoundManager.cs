@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
@@ -34,6 +35,11 @@ public class SoundManager : MonoBehaviour
 
     private AudioSource delay_effect;
 
+    [SerializeField] private Slider masterSlider;
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider effectSlider;
+    public GameObject optionPanel;
+
     void Awake()
     {
         if (null == instance)
@@ -58,12 +64,93 @@ public class SoundManager : MonoBehaviour
             return instance;
         }
     }
+    private void Start() {
+
+        bgmSlider.value = PlayerPrefs.GetFloat("BgmVolume", 1f);
+        effectSlider.value = PlayerPrefs.GetFloat("EffectVolume", 1f);
+        masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
+    }
 
     // control sound volume
     public void ControlVolume(string category, float val)
     {
-        mixer.SetFloat(category, Mathf.Log10(val) * 20);
+        mixer.SetFloat(category, Mathf.Clamp(Mathf.Log10(val) * 20, -80, 20));
         PlayerPrefs.SetFloat(category, val);
+    }
+
+    // master volume
+    private bool isMaster = true;
+    private float masterLevel = 0f;
+    public void SetMasterLevel(float sliderValue)
+    {
+        masterLevel = sliderValue;
+        if (isMaster)
+        {
+            SoundManager.Instance.ControlVolume("MasterVolume", masterLevel);
+        }
+    }
+    public void TurnMasterLevel(bool isActive)
+    {
+        if (isActive)
+        {
+            isMaster = true;
+            SoundManager.Instance.ControlVolume("MasterVolume", masterLevel);
+        }
+        else
+        {
+            isMaster = false;
+            SoundManager.Instance.ControlVolume("MasterVolume", 0f);
+        }
+    }
+
+    // 배경음악 볼륨 조절
+    private bool isBgm = true;
+    private float bgmLevel = 0f;
+    public void SetBGMLevel(float sliderValue)
+    {
+        bgmLevel = sliderValue;
+        if (isBgm)
+        {
+            SoundManager.Instance.ControlVolume("BgmVolume", bgmLevel);
+        }
+    }
+    public void TurnBgmLevel(bool isActive)
+    {
+        if (isActive)
+        {
+            isBgm = true;
+            SoundManager.Instance.ControlVolume("BgmVolume", bgmLevel);
+        }
+        else
+        {
+            isBgm = false;
+            SoundManager.Instance.ControlVolume("BgmVolume", 0f);
+        }
+    }
+
+    // 효과음 볼륨 조절
+    private bool isEffect = true;
+    private float effectLevel = 0f;
+    public void SetEffectLevel(float sliderValue)
+    {
+        effectLevel = sliderValue;
+        if (isEffect)
+        {
+            SoundManager.Instance.ControlVolume("EffectVolume", effectLevel);
+        }
+    }
+    public void TurnEffectLevel(bool isActive)
+    {
+        if (isActive)
+        {
+            isEffect = true;
+            SoundManager.Instance.ControlVolume("EffectVolume", effectLevel);
+        }
+        else
+        {
+            isEffect = false;
+            SoundManager.Instance.ControlVolume("EffectVolume", 0f);
+        }
     }
     
     public void PlayBGM(bool stop)

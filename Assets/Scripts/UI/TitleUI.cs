@@ -14,19 +14,13 @@ public class TitleUI : MonoBehaviour
     [SerializeField] private RectTransform left, right;
     bool canMove = false;
 
-    [SerializeField] private GameObject optionWin;
-    [SerializeField] private Slider masterSlider;
-    [SerializeField] private Slider bgmSlider;
-    [SerializeField] private Slider effectSlider;
+    [SerializeField] private GameObject optionWin, exitBtn;
 
     void Start()
     {
         SetResolution();
         SoundManager.Instance.PlayIngameBGM(false);
         SoundManager.Instance.PlayBGM(true);
-        bgmSlider.value = PlayerPrefs.GetFloat("BgmVolume", 1f);
-        effectSlider.value = PlayerPrefs.GetFloat("EffectVolume", 1f);
-        masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
     }
 
     void Update()
@@ -42,6 +36,7 @@ public class TitleUI : MonoBehaviour
         if (optionWin.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             optionWin.SetActive(false);
+            exitBtn.SetActive(true);
         }
         if(canMove)
         {
@@ -86,23 +81,7 @@ public class TitleUI : MonoBehaviour
         SceneManager.LoadScene("PncMain");
     }
 
-    // master volume
-    public void SetMasterLevel(float sliderValue)
-    {
-        SoundManager.Instance.ControlVolume("MasterVolume", sliderValue);
-    }
     
-    // 배경음악 볼륨 조절
-    public void SetBGMLevel(float sliderValue)
-    {
-        SoundManager.Instance.ControlVolume("BgmVolume", sliderValue);
-    }
-
-    // 효과음 볼륨 조절
-    public void SetEffectLevel(float sliderValue)
-    {
-        SoundManager.Instance.ControlVolume("EffectVolume", sliderValue);
-    }
 
     // 해상도 설정
     // 참고 링크: https://giseung.tistory.com/19
