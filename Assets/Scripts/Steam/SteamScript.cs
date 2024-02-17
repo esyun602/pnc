@@ -5,14 +5,25 @@ using Steamworks;
 // 참고 링크: https://steamworks.github.io/
 public class SteamScript : MonoBehaviour
 {
-    void Start()
+    public void ShowRemotePlayOverlay()
     {
         if (SteamManager.Initialized)
         {
-            SteamFriends.ActivateGameOverlayRemotePlayTogetherInviteDialog(SteamFriends.GetFriendByIndex(0, EFriendFlags.k_EFriendFlagImmediate));
-            string name = SteamFriends.GetFriendPersonaName(SteamFriends.GetFriendByIndex(0, EFriendFlags.k_EFriendFlagImmediate));
-            Debug.Log(name);
-            //SteamFriends.ActivateGameOverlay("Friends");
+            Callback<LobbyCreated_t>.Create(OnLobbyCreated);
+            var lobby = SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypePrivate, 2);
         }
+    }
+
+    private void OnLobbyCreated(LobbyCreated_t lobbyCreated_t)
+    {
+        if (lobbyCreated_t.m_eResult == EResult.k_EResultOK)
+        {
+            SteamFriends.ActivateGameOverlayRemotePlayTogetherInviteDialog((CSteamID)lobbyCreated_t.m_ulSteamIDLobby);
+        }
+    }
+
+    private void Update()
+    {
+        SteamAPI.RunCallbacks();
     }
 }
