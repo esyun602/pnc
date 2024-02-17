@@ -9,9 +9,10 @@ public class SteamScript : MonoBehaviour
     {
         if (SteamManager.Initialized)
         {
-            string name = SteamFriends.GetPersonaName();
+            SteamFriends.ActivateGameOverlayRemotePlayTogetherInviteDialog(SteamFriends.GetFriendByIndex(0, EFriendFlags.k_EFriendFlagImmediate));
+            string name = SteamFriends.GetFriendPersonaName(SteamFriends.GetFriendByIndex(0, EFriendFlags.k_EFriendFlagImmediate));
             Debug.Log(name);
-            SteamFriends.ActivateGameOverlay("Friends");
+            //SteamFriends.ActivateGameOverlay("Friends");
         }
     }
 }
