@@ -6,10 +6,20 @@ using Steamworks;
 public class SteamScript : MonoBehaviour
 {
     private ulong lobbyId = 0;
+
+    private SteamScript instance;
     
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void ShowRemotePlayOverlay()
