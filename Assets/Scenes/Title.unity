@@ -2054,14 +2054,14 @@ PrefabInstance:
     - target: {fileID: 5948057309363566692, guid: 2445b8b7b0a2eb740876c083f311b715, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1456603756}
+      objectReference: {fileID: 6994472693611417409}
     - target: {fileID: 5948057309363566692, guid: 2445b8b7b0a2eb740876c083f311b715, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowRemotePlayOverlay
+      value: OnRemotePlayClicked
       objectReference: {fileID: 0}
     - target: {fileID: 5948057309363566692, guid: 2445b8b7b0a2eb740876c083f311b715, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SteamScript, Assembly-CSharp
+      value: TitleUI, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7474312273695218770, guid: 2445b8b7b0a2eb740876c083f311b715, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2168,6 +2168,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2445b8b7b0a2eb740876c083f311b715, type: 3}
+--- !u!114 &6994472693611417409 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8673926449380016447, guid: 2445b8b7b0a2eb740876c083f311b715, type: 3}
+  m_PrefabInstance: {fileID: 6994472693611417408}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a8d9094a93bd147956974de2591385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

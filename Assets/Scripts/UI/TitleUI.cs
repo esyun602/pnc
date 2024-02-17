@@ -132,4 +132,9 @@ public class TitleUI : MonoBehaviour
         // RectTransform creditRect = creditWin.GetComponent<RectTransform>();
         // creditRect.sizeDelta = new Vector2(Screen.width, Screen.height);
     }
+
+    public void OnRemotePlayClicked()
+    {
+        SteamScript.instance.ShowRemotePlayOverlay();
+    }
 }

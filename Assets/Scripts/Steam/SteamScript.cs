@@ -7,7 +7,7 @@ public class SteamScript : MonoBehaviour
 {
     private ulong lobbyId = 0;
 
-    private SteamScript instance;
+    public static SteamScript instance;
     
     private void Start()
     {
