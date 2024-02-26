@@ -14,7 +14,7 @@ public class TitleUI : MonoBehaviour
     [SerializeField] private RectTransform left, right;
     bool canMove = false;
 
-    [SerializeField] private GameObject optionWin, exitBtn;
+    [SerializeField] private GameObject optionBtn, exitBtn;
 
     void Start()
     {
@@ -33,9 +33,10 @@ public class TitleUI : MonoBehaviour
         {
             creditWin.SetActive(false);
         }
-        if (optionWin.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        if (SoundManager.Instance.optionPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
-            optionWin.SetActive(false);
+            SoundManager.Instance.optionPanel.SetActive(false);
+            optionBtn.SetActive(true);
             exitBtn.SetActive(true);
         }
         if(canMove)
@@ -81,7 +82,11 @@ public class TitleUI : MonoBehaviour
         SceneManager.LoadScene("PncMain");
     }
 
-    
+    public void ClickedOption()
+    {
+        Debug.Log("ClickedOption");
+        SoundManager.Instance.optionPanel.SetActive(true);
+    }
 
     // 해상도 설정
     // 참고 링크: https://giseung.tistory.com/19

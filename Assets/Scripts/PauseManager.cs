@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] private GameObject optionPanel;
     [SerializeField] private GameStarter gameStarter;
     public void Resume()
     {
@@ -24,22 +23,14 @@ public class PauseManager : MonoBehaviour
 
     public void ClickedOption()
     {
-        optionPanel.SetActive(true);
-    }
-
-    void Start()
-    {
-        if(!optionPanel)
-        {
-            optionPanel = SoundManager.Instance.optionPanel;
-        }
+        SoundManager.Instance.optionPanel.SetActive(true);
     }
     
     void Update()
     {
-        if (optionPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        if (SoundManager.Instance.optionPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
-            optionPanel.SetActive(false);
+            SoundManager.Instance.optionPanel.SetActive(false);
         }
     }
 }
