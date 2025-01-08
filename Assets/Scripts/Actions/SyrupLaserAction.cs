@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SyrupLaserAction : IAction
+[CreateAssetMenu]
+public class SyrupLaserAction : ActionBase
 {
-    private const float runningTime = 1.25f + 0.5f;
-    private const float handRestoreTime = 0.75f + 0.5f;
-    private const float castingTime = 0.5f + 0.5f;
+    #region serializefield
+
+    [SerializeField] private float runningTime;
+    [SerializeField] private float handRestoreTime;
+    [SerializeField] private float castingTime;
+    [SerializeField] private GameObject LaserDangerLeftPrefab;
+    [SerializeField] private GameObject LaserDangerRightPrefab;
+    
+    #endregion
     private float timePassed = 0;
     private bool isActive = false;
 
@@ -17,15 +24,15 @@ public class SyrupLaserAction : IAction
     private GameObject leftDangerZone;
     private GameObject rightDangerZone;
 
-    public SyrupLaserAction(GameObject LaserDangerLeft, GameObject LaserDangerRight)
+    public override void Init()
     {
-        leftDangerZone = Object.Instantiate(LaserDangerLeft);
-        rightDangerZone = Object.Instantiate(LaserDangerRight);
+        leftDangerZone = Object.Instantiate(LaserDangerLeftPrefab);
+        rightDangerZone = Object.Instantiate(LaserDangerRightPrefab);
         leftDangerZone.gameObject.SetActive(false);
         rightDangerZone.gameObject.SetActive(false);
     }
 
-    void IAction.Trigger(System.Action endCallback)
+    protected override void Trigger(System.Action endCallback)
     {
         timePassed = 0;
         isActive = true;
@@ -42,7 +49,7 @@ public class SyrupLaserAction : IAction
         this.endCallback = endCallback;
     }
 
-    void IAction.UpdateFrame(float dt)
+    protected override void UpdateFrame(float dt)
     {
         if (!isActive)
         {

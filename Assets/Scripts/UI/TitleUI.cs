@@ -33,7 +33,7 @@ public class TitleUI : MonoBehaviour
         {
             creditWin.SetActive(false);
         }
-        if (SoundManager.Instance.optionPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        if (SoundManager.Instance.optionPanel != null && SoundManager.Instance.optionPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             SoundManager.Instance.optionPanel.SetActive(false);
             optionBtn.SetActive(true);

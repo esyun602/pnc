@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bc0c0eece286443b8220b83964be33, type: 3}
+  m_Name: DefaultSyrupDropAction
+  m_EditorClassIdentifier: 
+  runningTime: 1.5
+  handRestoreTime: 1.25
+  castingTime: 0.5
+  dropHeight: 1.7
+  dummyDropPrefab: {fileID: 6372375136990710152, guid: 068536b247180ee4ab08ad5dc6569545, type: 3}
+  syrupPrefab: {fileID: 4776554732712610908, guid: 99883721b1c373a4eab93dc6b7afdc68, type: 3}

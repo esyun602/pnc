@@ -28,6 +28,11 @@ public class PauseManager : MonoBehaviour
     
     void Update()
     {
+        if (SoundManager.Instance.optionPanel == null)
+        {
+            return;
+        }
+
         if (SoundManager.Instance.optionPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             SoundManager.Instance.optionPanel.SetActive(false);

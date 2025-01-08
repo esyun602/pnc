@@ -11,7 +11,7 @@ public enum ChefAction : uint
 
 public class ActionHandler
 {
-    private List<IAction> actionList;
+    private List<ActionBase> actionList;
     private int curIdx;
 
     public IAction CurrentAction => actionList[curIdx];
@@ -22,10 +22,14 @@ public class ActionHandler
     private bool IsTriggerBlocked => (blockChiefAction & ChefAction.TriggerAction) == ChefAction.TriggerAction;
     public bool IsActionChanged => currentTriggeredAction != CurrentAction;
 
-    public ActionHandler(List<IAction> actionList)
+    public ActionHandler(List<ActionBase> actionList)
     {
         this.actionList = actionList;
         curIdx = 0;
+        foreach (var action in actionList)
+        {
+            action.Init();
+        }
     }
 
     public void MoveToNextAction()

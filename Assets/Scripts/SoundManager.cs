@@ -66,9 +66,20 @@ public class SoundManager : MonoBehaviour
     }
     private void Start() {
 
-        bgmSlider.value = PlayerPrefs.GetFloat("BgmVolume", 1f);
-        effectSlider.value = PlayerPrefs.GetFloat("EffectVolume", 1f);
-        masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
+        if (bgmSlider != null)
+        {
+            bgmSlider.value = PlayerPrefs.GetFloat("BgmVolume", 1f);
+        }
+
+        if (effectSlider != null)
+        {
+            effectSlider.value = PlayerPrefs.GetFloat("EffectVolume", 1f);
+        }
+
+        if (masterSlider != null)
+        {
+            masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
+        }
     }
 
     // control sound volume

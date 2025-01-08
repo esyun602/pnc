@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c7fd019379464458181f66cee90f65, type: 3}
+  m_Name: DefaultForkAction
+  m_EditorClassIdentifier: 
+  runningTime: 2
+  handRestoreTime: 1
+  forkPrefab: {fileID: 2853392866294136222, guid: 8643df6caca6e5849ae1633f6f54ea0e, type: 3}
+  redPrefab: {fileID: 224124460207854741, guid: 189e6f5c40a89a1479ebf2de94fca700, type: 3}
