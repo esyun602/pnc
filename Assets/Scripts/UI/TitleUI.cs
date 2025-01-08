@@ -14,19 +14,13 @@ public class TitleUI : MonoBehaviour
     [SerializeField] private RectTransform left, right;
     bool canMove = false;
 
-    [SerializeField] private GameObject optionWin;
-    [SerializeField] private Slider masterSlider;
-    [SerializeField] private Slider bgmSlider;
-    [SerializeField] private Slider effectSlider;
+    [SerializeField] private GameObject optionBtn, exitBtn;
 
     void Start()
     {
         SetResolution();
         SoundManager.Instance.PlayIngameBGM(false);
         SoundManager.Instance.PlayBGM(true);
-        bgmSlider.value = PlayerPrefs.GetFloat("BgmVolume", 1f);
-        effectSlider.value = PlayerPrefs.GetFloat("EffectVolume", 1f);
-        masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
     }
 
     void Update()
@@ -39,9 +33,11 @@ public class TitleUI : MonoBehaviour
         {
             creditWin.SetActive(false);
         }
-        if (optionWin.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        if (SoundManager.Instance.optionPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
-            optionWin.SetActive(false);
+            SoundManager.Instance.optionPanel.SetActive(false);
+            optionBtn.SetActive(true);
+            exitBtn.SetActive(true);
         }
         if(canMove)
         {
@@ -86,22 +82,10 @@ public class TitleUI : MonoBehaviour
         SceneManager.LoadScene("PncMain");
     }
 
-    // master volume
-    public void SetMasterLevel(float sliderValue)
+    public void ClickedOption()
     {
-        SoundManager.Instance.ControlVolume("MasterVolume", sliderValue);
-    }
-    
-    // 배경음악 볼륨 조절
-    public void SetBGMLevel(float sliderValue)
-    {
-        SoundManager.Instance.ControlVolume("BgmVolume", sliderValue);
-    }
-
-    // 효과음 볼륨 조절
-    public void SetEffectLevel(float sliderValue)
-    {
-        SoundManager.Instance.ControlVolume("EffectVolume", sliderValue);
+        Debug.Log("ClickedOption");
+        SoundManager.Instance.optionPanel.SetActive(true);
     }
 
     // 해상도 설정
