@@ -91,7 +91,7 @@ public class SoundManager : MonoBehaviour
 
     // master volume
     private bool isMaster = true;
-    private float masterLevel = 0f;
+    private float masterLevel = 1f;
     public void SetMasterLevel(float sliderValue)
     {
         masterLevel = sliderValue;
@@ -116,7 +116,7 @@ public class SoundManager : MonoBehaviour
 
     // 배경음악 볼륨 조절
     private bool isBgm = true;
-    private float bgmLevel = 0f;
+    private float bgmLevel = 1f;
     public void SetBGMLevel(float sliderValue)
     {
         bgmLevel = sliderValue;
@@ -141,7 +141,7 @@ public class SoundManager : MonoBehaviour
 
     // 효과음 볼륨 조절
     private bool isEffect = true;
-    private float effectLevel = 0f;
+    private float effectLevel = 1f;
     public void SetEffectLevel(float sliderValue)
     {
         effectLevel = sliderValue;
